@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentHashMap; 
 
 public class Elevator implements Runnable{
-    int weight; // Weight limit is 20 people, trolley weight is 2 people 
+    int weight; // TODO: 08/03/19 decide on a max weight in kg
     int currentFloor;
     //public ConcurrentLinkedQueue<Person> floorQueue = new ConcurrentLinkedQueue<Person>(); 
      ConcurrentHashMap<Integer, ConcurrentLinkedQueue<Person> > floorQueue = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
@@ -29,18 +29,14 @@ public class Elevator implements Runnable{
 		 this.weight = 0;
 		 this.currentFloor = 0;
 		 this.queue = queue;
-         this.floorQueue = floorQueue; 
-
-    
-    
+         this.floorQueue = floorQueue;
     }
     
     public void addRequest(Person p1){
        addFloorRequest(p1); 
        this.queue.add(p1);
        updateWeight(p1); 
-       updateFloor(p1); 
-
+       updateFloor(p1);
     }
 
     public void addFloorRequest(Person p1){
@@ -63,19 +59,21 @@ public class Elevator implements Runnable{
 
     public void updateWeight(Person p1){
        // If user has trolley, add trolley weight 2 and then person weight 1 else just person weight 1
-       if (p1.hasTrolley == true){
-           this.weight+=3;
+       if (p1.baggageWeight > 0){
+           this.weight+= p1.baggageWeight + p1.personWeight;
         }
         else{
-            this.weight+=1;
+            this.weight+=p1.personWeight;
         }
 
-    } 
+    }
 
     public void updateFloor(Person p1){
          this.currentFloor = p1.arrivalFloor; 
 
     }
+
+    // TODO: 08/03/19 needs to be changed to kg
     public boolean checkWeightLimit(){
        // Checks if weight is greater then 20 people 
        if (this.weight>20){
