@@ -136,17 +136,10 @@ public class ElevatorController{
        // then add them to the inElevator hashmap with there destination floor 
        while(personEntering!=null){
 		   // when a person enters, update the weight 
-		   if (currentTime >= personEntering.arrivalTime ){
-				Elevator.currentWeight += 4; 
+				Elevator.currentWeight += 1; 
 				addPerson(personEntering, personEntering.destinationFloor,inElevator);
 				System.out.println(personEntering); 
-			}
-			
-			else{
-				 makeRequest(personEntering); 
-				 break; 
-				}
-				personEntering = removeAPerson(currentFloor, request); 
+		        personEntering = removeAPerson(currentFloor, request); 
 
 	   }
 	   

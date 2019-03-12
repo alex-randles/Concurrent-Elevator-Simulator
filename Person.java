@@ -10,7 +10,7 @@ import java.util.*;
 // deadlock - 2 or more threads become interlocked 
 public class Person extends Thread{
     int id;
-    int arrivalTime; 
+   // int arrivalTime; 
     int arrivalFloor;
     int destinationFloor; 
     boolean hasTrolley;
@@ -18,9 +18,9 @@ public class Person extends Thread{
     
 
     
-    public Person(int id, int arrivalFloor, int destinationFloor, int arrivalTime){
+    public Person(int id, int arrivalFloor, int destinationFloor){
 		 this.id = id;
-		 this.arrivalTime = arrivalTime;
+		 //this.arrivalTime = arrivalTime;
 		 this.arrivalFloor = arrivalFloor;
 		 this.destinationFloor = destinationFloor; 
         // this.hasTrolley = hasTrolley; 
