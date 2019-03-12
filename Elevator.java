@@ -20,40 +20,17 @@ public class Elevator extends Thread{
    public void run(){
    try{
 	   
-	   while(true && elevatorController.currentFloor < 11){
+	   while(true){
 		  {
-			System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
 		   elevatorController.enterElevator(); 	
-		   elevatorController.exitElevator(); 	   
+		   elevatorController.exitElevator(); 	
+		   elevatorController.changeFloor(minFloor,maxFloor); 
+		   System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
+		   // sleep for 100 milliseconds between floors   
+		  // System.out.println(elevatorController.inElevator); 
 		   Thread.sleep(100); 
-		   //System.out.println(elevatorController.goingUp);
 		   
-		   
-		   if (elevatorController.goingUp == true){
-			   
-			   if(elevatorController.currentFloor == maxFloor){
-				    elevatorController.currentFloor--;	   
-				    elevatorController.goingUp = false; 
-				    elevatorController.goingDown = true; 			    
-			   }
-		       else{
-				   elevatorController.currentFloor++;
-				}
-	       }
-			
-		   else{
-			   
-			   if(elevatorController.currentFloor == minFloor){
-					elevatorController.goingUp = true; 
-				    elevatorController.goingDown = false; 	
-				    elevatorController.currentFloor++;
-		   
-				 }
-				else{
-			      elevatorController.currentFloor--;
-                 }
-			   
-			 }   
+ 
 		    
 	   
 		   

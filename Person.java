@@ -1,4 +1,7 @@
 import java.util.*;
+// this person class is purely for testing, not the final implementation 
+
+
 // one access to thread at a time 
 //  not thread that is synchronized, its the method acting on it
 // monitor controls object of a thread, even though its not one 
@@ -12,7 +15,7 @@ public class Person extends Thread{
     
     
 
-
+    
     public Person(int id, int arrivalFloor, int destinationFloor){
 		 this.id = id;
 		// this.arrivalTime = arrivalTime;
@@ -29,7 +32,7 @@ public class Person extends Thread{
 
     
     public String toString(){
-		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s",id, arrivalFloor, destinationFloor); 
+		String personalDetails = String.format("Person with id: %s, arrivalFloor: %s, destinationFloor: %s",id, arrivalFloor, destinationFloor); 
 		return personalDetails; 
 		
 		
