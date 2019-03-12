@@ -1,5 +1,7 @@
 import java.util.*;
 // this person class is purely for testing, not the final implementation 
+// it only has the id, arrival floor and destination floor at the moment
+// they will be randomised later 
 
 
 // one access to thread at a time 
@@ -16,9 +18,9 @@ public class Person extends Thread{
     
 
     
-    public Person(int id, int arrivalFloor, int destinationFloor){
+    public Person(int id, int arrivalFloor, int destinationFloor, int arrivalTime){
 		 this.id = id;
-		// this.arrivalTime = arrivalTime;
+		 this.arrivalTime = arrivalTime;
 		 this.arrivalFloor = arrivalFloor;
 		 this.destinationFloor = destinationFloor; 
         // this.hasTrolley = hasTrolley; 
@@ -42,7 +44,7 @@ public class Person extends Thread{
 
     public void run(){
         try{
-            System.out.printf("Person with id: %s and arrivalTime: %s wants to go from floor %s to floor %s\n",id,arrivalTime,arrivalFloor,destinationFloor);  
+            System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);  
 
         }
         catch(Exception e){

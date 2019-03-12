@@ -6,6 +6,8 @@ import java.util.*;
 public class Elevator extends Thread{
    private int maxFloor;
    private int minFloor;
+   public static int currentWeight;
+   private int maxWeight; 
    private ElevatorController elevatorController; 
    public Elevator(ElevatorController elevatorController){
       // this will control the actions of the elevator thread
@@ -13,6 +15,8 @@ public class Elevator extends Thread{
       this.elevatorController = elevatorController; 
       this.maxFloor = 10;
       this.minFloor = 0; 
+      this.currentWeight = 0; 
+      this.maxWeight = 4; 
    }
    
    
@@ -22,13 +26,19 @@ public class Elevator extends Thread{
 	   
 	   while(true){
 		  {
+		    
+		  // checkWeight(); 
+		   // time is updated 1 on each floor 
+		   System.out.println("Time: " + elevatorController.currentTime); 
 		   elevatorController.enterElevator(); 	
 		   elevatorController.exitElevator(); 	
 		   elevatorController.changeFloor(minFloor,maxFloor); 
+		   
 		   System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
 		   // sleep for 100 milliseconds between floors   
 		  // System.out.println(elevatorController.inElevator); 
-		   Thread.sleep(100); 
+		   Thread.sleep(500); 
+		   
 		   
  
 		    
@@ -38,10 +48,10 @@ public class Elevator extends Thread{
 	   
 	   
 	   
-	  }
-     }
+					}
+			}
      
- }
+     }
 	  
 	 catch(Exception e){
 		 System.out.println("lift not working"); 
@@ -50,9 +60,16 @@ public class Elevator extends Thread{
 	 }
 	 
 
-}
+   }
 
-
+   
+   public void checkWeight() throws InterruptedException{
+	   if (this.currentWeight > this.maxWeight)
+	   { 
+		   System.out.printf("Warning the elevator is too heavy with weight: %s and max weight %s!", currentWeight, maxWeight); 
+		   Thread.sleep(1000);
+		}
+   }
 
 
 
