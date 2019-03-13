@@ -8,21 +8,24 @@ import java.util.*;
 //  not thread that is synchronized, its the method acting on it
 // monitor controls object of a thread, even though its not one 
 // deadlock - 2 or more threads become interlocked 
+import java.util.*; 
 public class Person extends Thread{
     int id;
-   // int arrivalTime; 
+    double arrivalTime; 
     int arrivalFloor;
     int destinationFloor; 
     boolean hasTrolley;
-    
-    
+   ElevatorController elevatorController; 
 
     
-    public Person(int id, int arrivalFloor, int destinationFloor){
+
+     Random random = new Random();
+    public Person(int id, int arrivalFloor, int destinationFloor, double arrivalTime ){
 		 this.id = id;
-		 //this.arrivalTime = arrivalTime;
-		 this.arrivalFloor = arrivalFloor;
-		 this.destinationFloor = destinationFloor; 
+		 this.arrivalTime = arrivalTime;
+		 this.arrivalFloor = random.nextInt(5);
+		 this.destinationFloor = random.nextInt(10); 
+		// this.elevatorController = new ElevatorController(); 
         // this.hasTrolley = hasTrolley; 
 
     }
@@ -45,7 +48,7 @@ public class Person extends Thread{
     public void run(){
         try{
             System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);  
-
+           //  elevatorController.makeRequest(this); 
         }
         catch(Exception e){
 

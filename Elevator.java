@@ -29,15 +29,16 @@ public class Elevator extends Thread{
 		    
 		  // checkWeight(); 
 		   // time is updated 1 on each floor 
-		   System.out.println("Time: " + elevatorController.currentTime); 
+		  // System.out.println("Time: " + elevatorController.currentTime); 
+		  // elevatorController.acceptRequest(); 
 		   elevatorController.enterElevator(); 	
 		   elevatorController.exitElevator(); 	
-		   elevatorController.changeFloor(minFloor,maxFloor); 
-		   
+		   elevatorController.changeFloor(minFloor,maxFloor); 		   
 		   System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
 		   // sleep for 100 milliseconds between floors   
 		  // System.out.println(elevatorController.inElevator); 
 		   Thread.sleep(500); 
+		   
 		   
 		   
  

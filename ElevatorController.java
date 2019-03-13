@@ -9,8 +9,9 @@ public class ElevatorController{
     public boolean goingDown; 
     public int currentFloor; 
     public int currentTime; 
+    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> acceptedRequest; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> request; 
-     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
+    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
     // the request hashmap maps the request to the floor they are at 
     // the person making the request will join the linked queue for that floor 
     // (hashmap) {floor 0 -> linkedQueue{0 : [person1 - > person 2 -> 3}
@@ -24,6 +25,7 @@ public class ElevatorController{
 		// all of the people currently in the elevator  
 		// maps the person to their destination floor
 		this.inElevator = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>(); 
+		//this.acceptedRequest = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
 		this.currentFloor = 0; 
 		this.currentTime = 0; 
 		
@@ -65,11 +67,29 @@ public class ElevatorController{
 	
 	// A person wants to request the elevator, add them into request hashmap 
 	public synchronized void makeRequest(Person person){
+		//System.out.println(person.arrivalTime); 
+		//System.out.println(currentTime); 
+		//if(person.arrivalTime <= currentTime){
 		addPerson(person,person.arrivalFloor, request); 
+	    //}
 		//System.out.println(this.request); 
 		
 	}
-    
+   
+    public  synchronized void acceptRequest(){
+		if(request.get(currentFloor) != null){
+		ConcurrentLinkedQueue<Person> tmp = request.get(currentFloor); 
+		for(Person person : tmp){
+			if (person.arrivalTime <= currentTime){
+				addPerson(person, currentFloor, request); 
+					}
+				}
+         	}
+     	
+		System.out.println(acceptedRequest); 
+		
+		
+	}
     
     // this will decide which floor the elevator goes to next 
     public synchronized void changeFloor(int minFloor,int maxFloor){
@@ -152,10 +172,10 @@ public class ElevatorController{
    
    public synchronized void exitElevator() throws InterruptedException{
 	   // if there are no more request or people in the elevator, sleep at that floor 
-	   while(request.isEmpty() && inElevator.isEmpty()){
-		   System.out.printf("The elevator is sleeping on floor %s\n",currentFloor); 
-		   wait(); 
-	   }
+	   //while(request.isEmpty() && inElevator.isEmpty()){
+		 //  System.out.printf("The elevator is sleeping on floor %s\n",currentFloor); 
+		  // wait(); 
+	   //}
 
 
 	   Person personLeaving = removeAPerson(currentFloor, inElevator); 
@@ -164,8 +184,10 @@ public class ElevatorController{
        System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
        // while there are people at that floor let them enter the elevator
        // then add them to the inElevator hashmap with there destination floor 
-       while(personLeaving!=null){
-       System.out.println(personLeaving); 
+       		   System.out.println(inElevator.isEmpty()); 
+
+      while(personLeaving!=null){
+        System.out.println(personLeaving); 
 	    personLeaving = removeAPerson(currentFloor, inElevator); 
      	}
 		
@@ -174,4 +196,7 @@ public class ElevatorController{
 	 notifyAll();   
 	 }
 
+	public int getTime(){
+		return this.currentTime;
+	}
 }
