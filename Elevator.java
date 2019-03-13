@@ -33,11 +33,14 @@ public class Elevator extends Thread{
 		  // elevatorController.acceptRequest(); 
 		   elevatorController.enterElevator(); 	
 		   elevatorController.exitElevator(); 	
-		   elevatorController.changeFloor(minFloor,maxFloor); 		   
-		   System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
+		   elevatorController.changeFloor(minFloor,maxFloor);
+
+          
+		  // System.out.printf("There is %s people in the elevator\n", elevatorController.numPeople); 
+		  // System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
 		   // sleep for 100 milliseconds between floors   
 		  // System.out.println(elevatorController.inElevator); 
-		   Thread.sleep(500); 
+		   Thread.sleep(1000); 
 		   
 		   
 		   

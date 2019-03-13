@@ -12,12 +12,12 @@ public class Person extends Thread{
     boolean hasTrolley;
    ElevatorController elevatorController; 
     
-
-     Random random = new Random();
-    public Person(int id, int arrivalFloor, int destinationFloor, int arrivalTime ){
+     
+    Random random = new Random();
+    public Person(int id, int arrivalTime ){
 		 this.id = id;
 		 this.arrivalTime = arrivalTime;
-		 this.arrivalFloor = random.nextInt(5);
+		 this.arrivalFloor = random.nextInt(10);
 		 this.destinationFloor = random.nextInt(10); 
 		// this.elevatorController = new ElevatorController(); 
 
@@ -30,7 +30,7 @@ public class Person extends Thread{
 
     
     public String toString(){
-		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s",id, arrivalFloor, destinationFloor); 
+		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, arrivalFloor, destinationFloor, arrivalTime); 
 		return personalDetails; 
 		
 		

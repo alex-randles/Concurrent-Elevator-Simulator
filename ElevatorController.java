@@ -9,6 +9,7 @@ public class ElevatorController{
     public boolean goingDown; 
     public int currentFloor; 
     public int currentTime; 
+    public int numPeople; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> acceptedRequest; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> request; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
@@ -25,10 +26,10 @@ public class ElevatorController{
 		// all of the people currently in the elevator  
 		// maps the person to their destination floor
 		this.inElevator = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>(); 
-		//this.acceptedRequest = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
+		this.acceptedRequest = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
 		this.currentFloor = 0; 
 		this.currentTime = 0; 
-		
+		this.numPeople = 0 ;
 	}
 	
 	
@@ -77,23 +78,27 @@ public class ElevatorController{
 	}
    
     public  synchronized void acceptRequest(){
-		if(request.get(currentFloor) != null){
-		ConcurrentLinkedQueue<Person> tmp = request.get(currentFloor); 
-		for(Person person : tmp){
-			if (person.arrivalTime <= currentTime){
-				addPerson(person, currentFloor, request); 
-					}
+	
+	    // if a person's arrivalTime is less then or equal to current time 
+	    ConcurrentLinkedQueue<Person> queue = request.get(currentFloor); 
+			
+			for (Person p : queue){
+				if (p.arrivalTime <= currentTime){
+					
+					addPerson(p,p.arrivalFloor, acceptedRequest); 
 				}
-         	}
-     	
-		System.out.println(acceptedRequest); 
+			}
+			
+		
 		
 		
 	}
     
     // this will decide which floor the elevator goes to next 
-    public synchronized void changeFloor(int minFloor,int maxFloor){
-		   // add one to time at each floor 
+    public synchronized void changeFloor(int minFloor,int maxFloor) throws InterruptedException{
+	    // add one to time at each floor 
+	    //System.out.println(request); 
+       //if (!(request.isEmpty())){
 		   currentTime++; 
 		   if (goingUp == true){
 			   
@@ -120,16 +125,26 @@ public class ElevatorController{
                  }
 			   
 			 }  
+			 
+		//	if(!inElevator.isEmpty()){
+			System.out.printf("Elevator is on floor %s\n",this.currentFloor); 	   
+		  //  }
+		 //}
+
+			 
+
 
     }
 
 
-    public synchronized void enterElevator(){
+    public synchronized void enterElevator() throws InterruptedException{
 		
 		
        // if no person waiting to enter, will return null 
 	    // find out if the elevator should be going up or down 
 	    // compare the current floor with the floors in the in elevator hashmap 
+	    
+	    
 	    
 	    
 	    for (int key : inElevator.keySet()){
@@ -145,8 +160,7 @@ public class ElevatorController{
 			
 		}
 		// System.out.printf("going up %s and going down %s\n", goingUp, goingDown); 
-     
-	   
+
 	   Person personEntering = removeAPerson(currentFloor, request); 
 	   // check if there is a person waiting on the elevator 
        if (personEntering!=null){
@@ -155,8 +169,11 @@ public class ElevatorController{
        // while there are people at that floor let them enter the elevator
        // then add them to the inElevator hashmap with there destination floor 
        while(personEntering!=null){
+		   	  // if (numPeople > 1){System.out.println("Lift Overweight" + inElevator);break;}
+
 		   // when a person enters, update the weight 
-				Elevator.currentWeight += 1; 
+				this.numPeople += 1; 
+
 				addPerson(personEntering, personEntering.destinationFloor,inElevator);
 				System.out.println(personEntering); 
 		        personEntering = removeAPerson(currentFloor, request); 
@@ -172,9 +189,9 @@ public class ElevatorController{
    
    public synchronized void exitElevator() throws InterruptedException{
 	   // if there are no more request or people in the elevator, sleep at that floor 
-	   //while(request.isEmpty() && inElevator.isEmpty()){
-		 //  System.out.printf("The elevator is sleeping on floor %s\n",currentFloor); 
-		  // wait(); 
+	   //while(request.isEmpty()){
+		 //   System.out.printf("The elevator is sleeping on floor %s\n",currentFloor); 
+		 //   wait(100); 
 	   //}
 
 
@@ -189,6 +206,7 @@ public class ElevatorController{
       while(personLeaving!=null){
         System.out.println(personLeaving); 
 	    personLeaving = removeAPerson(currentFloor, inElevator); 
+	    this.numPeople-=1;
      	}
 		
 	 } 
