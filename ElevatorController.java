@@ -10,7 +10,9 @@ public class ElevatorController{
     public int currentFloor; 
     public int currentTime; 
     public int numPeople; 
-    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> acceptedRequest; 
+    // a person will be added to the waiting queue when we the current time has reached there arrival time 
+    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
+    // all the people who will want to use the elevator 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> request; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
     // the request hashmap maps the request to the floor they are at 
@@ -22,11 +24,11 @@ public class ElevatorController{
 		this.goingDown = false; 
 		// all of the people who want to request the elevator
 		// maps to their arrrival floor 
-		this.request = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
+		this.waiting = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
 		// all of the people currently in the elevator  
 		// maps the person to their destination floor
 		this.inElevator = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>(); 
-		this.acceptedRequest = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
+		this.request = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
 		this.currentFloor = 0; 
 		this.currentTime = 0; 
 		this.numPeople = 0 ;
@@ -71,23 +73,20 @@ public class ElevatorController{
 		//System.out.println(person.arrivalTime); 
 		//System.out.println(currentTime); 
 		//if(person.arrivalTime <= currentTime){
-		addPerson(person,person.arrivalFloor, request); 
+		addPerson(person,person.arrivalTime, request); 
 	    //}
 		//System.out.println(this.request); 
 		
 	}
    
     public  synchronized void acceptRequest(){
-	
-	    // if a person's arrivalTime is less then or equal to current time 
-	    ConcurrentLinkedQueue<Person> queue = request.get(currentFloor); 
-			
-			for (Person p : queue){
-				if (p.arrivalTime <= currentTime){
-					
-					addPerson(p,p.arrivalFloor, acceptedRequest); 
-				}
-			}
+	   
+	   Person personWaiting = removeAPerson(currentTime, request); 
+	   while(personWaiting != null){
+		   addPerson(personWaiting,personWaiting.arrivalFloor, waiting); 
+		   removeAPerson(personWaiting.arrivalFloor, request);
+		   personWaiting  =   removeAPerson(currentTime, request); 
+	   }
 			
 		
 		
@@ -96,10 +95,16 @@ public class ElevatorController{
     
     // this will decide which floor the elevator goes to next 
     public synchronized void changeFloor(int minFloor,int maxFloor) throws InterruptedException{
+	    
+
+	 // while(waiting.isEmpty()){
+		  
+    //		  wait(); 
+	//  }
+	 //if (!(waiting.isEmpty())){   
 	    // add one to time at each floor 
 	    //System.out.println(request); 
        //if (!(request.isEmpty())){
-		   currentTime++; 
 		   if (goingUp == true){
 			   
 			   if(currentFloor == maxFloor){
@@ -130,6 +135,7 @@ public class ElevatorController{
 			System.out.printf("Elevator is on floor %s\n",this.currentFloor); 	   
 		  //  }
 		 //}
+//	 }
 
 			 
 
@@ -144,7 +150,7 @@ public class ElevatorController{
 	    // find out if the elevator should be going up or down 
 	    // compare the current floor with the floors in the in elevator hashmap 
 	    
-	    
+
 	    
 	    
 	    for (int key : inElevator.keySet()){
@@ -161,7 +167,7 @@ public class ElevatorController{
 		}
 		// System.out.printf("going up %s and going down %s\n", goingUp, goingDown); 
 
-	   Person personEntering = removeAPerson(currentFloor, request); 
+	   Person personEntering = removeAPerson(currentFloor, waiting); 
 	   // check if there is a person waiting on the elevator 
        if (personEntering!=null){
 		   System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
@@ -176,7 +182,7 @@ public class ElevatorController{
 
 				addPerson(personEntering, personEntering.destinationFloor,inElevator);
 				System.out.println(personEntering); 
-		        personEntering = removeAPerson(currentFloor, request); 
+		        personEntering = removeAPerson(currentFloor, waiting); 
 
 	   }
 	   

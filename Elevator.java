@@ -30,11 +30,16 @@ public class Elevator extends Thread{
 		  // checkWeight(); 
 		   // time is updated 1 on each floor 
 		  // System.out.println("Time: " + elevatorController.currentTime); 
-		  // elevatorController.acceptRequest(); 
+		 // sleepWhileEmpty(); 
+		   elevatorController.acceptRequest(); 
+		  // System.out.println(elevatorController.request); 
+		  // System.out.println(elevatorController.waiting); 
 		   elevatorController.enterElevator(); 	
 		   elevatorController.exitElevator(); 	
+		   elevatorController.currentTime++; 
 		   elevatorController.changeFloor(minFloor,maxFloor);
-
+		   System.out.printf("Current Time: %s\n", elevatorController.currentTime); 
+          
           
 		  // System.out.printf("There is %s people in the elevator\n", elevatorController.numPeople); 
 		  // System.out.printf("Elevator is on floor %s\n",elevatorController.currentFloor); 	   
@@ -74,8 +79,18 @@ public class Elevator extends Thread{
 		   Thread.sleep(1000);
 		}
    }
+   
+   public synchronized void sleepWhileEmpty() throws InterruptedException{
+            
+            synchronized(this){
+				
+				while(elevatorController.waiting.isEmpty()){
+					wait(); 
+				}
+				
+				notifyAll(); 
+			}
 
-
-
+   }
 
 }

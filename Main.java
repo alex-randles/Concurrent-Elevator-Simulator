@@ -16,7 +16,7 @@ public class Main{
 	    elevator.start(); 
 	    Random random = new Random();
 	    int i =0; 
-	    while(elevatorController.getTime()< 100){
+	    /*while(elevatorController.getTime()< 100){
              //elevatorController.currentTime += random.nextInt(10);
             //System.out.printf("Arrival time: %s\n", randomArrival); 
             int randomArrival = random.nextInt(10); 
@@ -25,8 +25,8 @@ public class Main{
 			elevatorController.makeRequest(person); 
 			TimeUnit.SECONDS.sleep(randomArrival);
 			//Thread.sleep(randomArrival); 
-			i++; 
-		}
+			i = i + 3; 
+		} */
 		// A person with a smaller arrival time may be served first 
 		/*int time = 0 ;
 		int id = 0; 
@@ -39,7 +39,19 @@ public class Main{
 			id ++; 
 		}*/
 		
+		Person[] people = new Person[5];
+		int id = 0 ;
+		for (int x = 0; x <5 ; x++){
+			int rand = random.nextInt(10);
+			people[x] = new Person(id,rand);
+			id++;
+		}
 		
+		for ( Person p : people){
+			//p.start(); 
+			elevatorController.makeRequest(p);  
+			
+		}
 		
 		
 		//Person  p4 = new Person(3,3,2);
