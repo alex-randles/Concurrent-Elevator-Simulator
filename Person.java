@@ -9,20 +9,29 @@ public class Person extends Thread{
     int arrivalTime; 
     int arrivalFloor;
     int destinationFloor; 
+    int weight; 
     boolean hasTrolley;
    ElevatorController elevatorController; 
     
      
     Random random = new Random();
-    public Person(int id, int arrivalTime ){
+    /*public Person(int id, int arrivalTime,ElevatorController elevatorController ){
 		 this.id = id;
 		 this.arrivalTime = arrivalTime;
 		 this.arrivalFloor = random.nextInt(10);
 		 this.destinationFloor = random.nextInt(10); 
-		// this.elevatorController = new ElevatorController(); 
+		 this.elevatorController = elevatorController; 
+ 
+    } */ 
 
+     public Person(int id, int arrivalFloor, int destinationFloor, int arrivalTime,ElevatorController elevatorController ){
+		 this.id = id;
+		 this.arrivalFloor = arrivalFloor;
+		 this.destinationFloor = destinationFloor; 
+		 this.arrivalTime = arrivalTime;
+		 this.weight = 1; 
+		 this.elevatorController = elevatorController; 
     }
-
     public int getCurrentFloor(){
          return arrivalFloor; 
 
@@ -40,8 +49,9 @@ public class Person extends Thread{
 
     public void run(){
         try{
-            System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);  
-           
+            //System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);  
+            elevatorController.makeRequest(this); 
+            //notifyAll(); 
         }
         catch(Exception e){
 

@@ -10,6 +10,7 @@ public class ElevatorController{
     public int currentFloor; 
     public int currentTime; 
     public int numPeople; 
+    public int currentWeight; 
     // a person will be added to the waiting queue when we the current time has reached there arrival time 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
     // all the people who will want to use the elevator 
@@ -31,11 +32,11 @@ public class ElevatorController{
 		this.request = new ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>>();
 		this.currentFloor = 0; 
 		this.currentTime = 0; 
-		this.numPeople = 0 ;
+		this.currentWeight = 0 ;
 	}
 	
 	
-	// add a person into the elevator or the request queue 
+	// add a person into the in elevator, request or waiting queue 
 	public synchronized void addPerson(Person person, int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap){
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
 		if (hashmap.containsKey(floor)){
@@ -51,7 +52,7 @@ public class ElevatorController{
 		
 	}
 	
-	// remove a person from either the inElevator hashmap or request hashmap 
+	// remove a person from either the inElevator, request or waiting queue 
 	public synchronized Person removeAPerson(int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap) {
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
 		if (hashmap.containsKey(floor)){
@@ -70,15 +71,13 @@ public class ElevatorController{
 	
 	// A person wants to request the elevator, add them into request hashmap 
 	public synchronized void makeRequest(Person person){
-		//System.out.println(person.arrivalTime); 
-		//System.out.println(currentTime); 
-		//if(person.arrivalTime <= currentTime){
 		addPerson(person,person.arrivalTime, request); 
-	    //}
-		//System.out.println(this.request); 
+
 		
 	}
-   
+    
+    
+    // if the persons arrival time is <= current time add them to the waiting queue 
     public  synchronized void acceptRequest(){
 	   
 	   Person personWaiting = removeAPerson(currentTime, request); 
@@ -93,19 +92,38 @@ public class ElevatorController{
 		
 	}
     
+   
     // this will decide which floor the elevator goes to next 
     public synchronized void changeFloor(int minFloor,int maxFloor) throws InterruptedException{
 	    
 
-	 // while(waiting.isEmpty()){
-		  
-    //		  wait(); 
-	//  }
-	 //if (!(waiting.isEmpty())){   
-	    // add one to time at each floor 
-	    //System.out.println(request); 
-       //if (!(request.isEmpty())){
-		   if (goingUp == true){
+
+     
+     // Example for below - this will tell which direction the elevator should go 
+     // Current floor -> 5
+     // InElevator Keys -> 1,2,3
+     // these keys are the peoples destination  floor
+     // max = 3 
+     // since max is less then current floor the elevator must go down 
+     
+	 if(!(inElevator.isEmpty())){
+       int max = Collections.max(inElevator.keySet());
+       
+       if(max < currentFloor){
+		   goingUp = false;
+		   goingDown = true;                   
+	   }
+	   else{
+		   goingUp = true;
+		   goingDown = false;  
+	   }
+       
+       }
+		
+		
+		
+      if(!(waiting.isEmpty()) || !(inElevator.isEmpty()) ){
+		if (goingUp == true){
 			   
 			   if(currentFloor == maxFloor){
 				    currentFloor--;	   
@@ -129,14 +147,13 @@ public class ElevatorController{
 			      currentFloor--;
                  }
 			   
-			 }  
-			 
-		//	if(!inElevator.isEmpty()){
-			System.out.printf("Elevator is on floor %s\n",this.currentFloor); 	   
-		  //  }
-		 //}
-//	 }
+	 }  
 
+
+			 // print what floor the elevator is on 
+			System.out.printf("Elevator is on floor %s************\n",this.currentFloor); 	   
+
+ }
 			 
 
 
@@ -146,47 +163,38 @@ public class ElevatorController{
     public synchronized void enterElevator() throws InterruptedException{
 		
 		
-       // if no person waiting to enter, will return null 
-	    // find out if the elevator should be going up or down 
-	    // compare the current floor with the floors in the in elevator hashmap 
-	    
 
-	    
-	    
-	    for (int key : inElevator.keySet()){
-			if (key > currentFloor){
-				goingUp = true;
-				goingDown = false; 
-				break ; 
-			}
-			else{
-				goingUp =false; 
-				goingDown = true; 
-			}
-			
-		}
-		// System.out.printf("going up %s and going down %s\n", goingUp, goingDown); 
 
+	   /*if ((personEntering.weight + currentWeight) >= 2 ){
+		   System.out.printf("The elevator is overweight person with id: %s and weight %s must leave",personEntering.id,personEntering.weight);
+		   addPerson(personEntering, currentFloor, waiting); 
+		   personEntering = null; 
+		   
+	   }*/
+
+	   boolean headingPrinted = false; 
+	   // remove a person who's waiting at the current floor
 	   Person personEntering = removeAPerson(currentFloor, waiting); 
-	   // check if there is a person waiting on the elevator 
-       if (personEntering!=null){
-		   System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
-	   }  
-       // while there are people at that floor let them enter the elevator
-       // then add them to the inElevator hashmap with there destination floor 
+	   // while there is people waiting on the current floor
        while(personEntering!=null){
-		   	  // if (numPeople > 1){System.out.println("Lift Overweight" + inElevator);break;}
-
-		   // when a person enters, update the weight 
-				this.numPeople += 1; 
-
+		   
+				// print heading 
+		   	    if (!(headingPrinted)){
+					System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
+					headingPrinted = true; 
+				}
+				
+				// add the persons weight to the current weight 
+				this.currentWeight += personEntering.weight ; 
+				// add the person to the in elevator 
 				addPerson(personEntering, personEntering.destinationFloor,inElevator);
+				// print persons details
 				System.out.println(personEntering); 
+				// remove another waiting person on the current floor 
 		        personEntering = removeAPerson(currentFloor, waiting); 
 
 	   }
-	   
-	   
+
 
 	   notifyAll(); 
 		
@@ -194,28 +202,30 @@ public class ElevatorController{
    
    
    public synchronized void exitElevator() throws InterruptedException{
-	   // if there are no more request or people in the elevator, sleep at that floor 
-	   //while(request.isEmpty()){
-		 //   System.out.printf("The elevator is sleeping on floor %s\n",currentFloor); 
-		 //   wait(100); 
-	   //}
-
-
-	   Person personLeaving = removeAPerson(currentFloor, inElevator); 
-       // if there is a person on the floor requesting to get in, let them in 
-       if (personLeaving!=null){
-       System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
-       // while there are people at that floor let them enter the elevator
-       // then add them to the inElevator hashmap with there destination floor 
-       		   System.out.println(inElevator.isEmpty()); 
-
+     // System.out.println(inElevator.isEmpty()); 
+      
+      // remove a person from the current floor who's in the elevator        
+	  Person personLeaving = removeAPerson(currentFloor, inElevator);   
+      boolean headingPrinted = false; 
+      // while there are people on this floor remove them from the elevator
       while(personLeaving!=null){
+		 
+		 // print heading to show people are leaving 
+		 if(!(headingPrinted)){
+			System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
+			headingPrinted = true; 
+	     }
+	     
+	    // print out who's leaving 
         System.out.println(personLeaving); 
+        // adjust weight according to the people who are leaving
+        this.currentWeight-= personLeaving.weight;
+        // remove another person from this floor 
 	    personLeaving = removeAPerson(currentFloor, inElevator); 
-	    this.numPeople-=1;
+	  
      	}
 		
-	 } 
+	  
 	   
 	 notifyAll();   
 	 }
