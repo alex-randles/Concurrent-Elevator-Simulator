@@ -5,53 +5,57 @@ import java.util.*;
 // deadlock - 2 or more threads become interlocked 
 import java.util.*; 
 public class Person extends Thread{
-    int id;
-    int arrivalTime; 
+    int id = 0;
+    int arrivalTime;
     int arrivalFloor;
-    int destinationFloor; 
-    int weight; 
-    boolean hasTrolley;
-   ElevatorController elevatorController; 
-    
-     
-    Random random = new Random();
-    /*public Person(int id, int arrivalTime,ElevatorController elevatorController ){
-		 this.id = id;
-		 this.arrivalTime = arrivalTime;
-		 this.arrivalFloor = random.nextInt(10);
-		 this.destinationFloor = random.nextInt(10); 
-		 this.elevatorController = elevatorController; 
- 
-    } */ 
+    int destinationFloor;
+    int baggageWeight;
+    int personWeight;
+    ElevatorController elevatorController;
+    Random random;
 
-     public Person(int id, int arrivalFloor, int destinationFloor, int arrivalTime,ElevatorController elevatorController ){
-		 this.id = id;
-		 this.arrivalFloor = arrivalFloor;
-		 this.destinationFloor = destinationFloor; 
-		 this.arrivalTime = arrivalTime;
-		 this.weight = 1; 
-		 this.elevatorController = elevatorController; 
+    public Person(ElevatorController elevatorController){
+        this.id = id;
+        this.arrivalTime = this.elevatorController.getTime();
+        this.arrivalFloor = floor();
+        this.destinationFloor = floor();
+        this.baggageWeight = luggage();
+        this.personWeight = passengerWeight();
+        this.random = new Random();
+        this.elevatorController = elevatorController;
+        id++;
     }
+
     public int getCurrentFloor(){
          return arrivalFloor; 
 
     }
 
-    
+    public int passengerWeight(){
+        return random.nextInt((100-40)+1)+40;
+    }
+
+
+    public int floor(){
+        return random.nextInt((10-0)+1)+0;
+    }
+
+    public int luggage(){
+        return random.nextInt((30-0)+1)+0;
+    }
+
     public String toString(){
-		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, arrivalFloor, destinationFloor, arrivalTime); 
+		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, arrivalFloor, destinationFloor, arrivalTime);
 		return personalDetails; 
 		
 		
 	}
-    
-
 
     public void run(){
         try{
-            //System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);  
-            elevatorController.makeRequest(this); 
-            //notifyAll(); 
+            //System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);
+            elevatorController.makeRequest(this);
+            //notifyAll();
         }
         catch(Exception e){
 
