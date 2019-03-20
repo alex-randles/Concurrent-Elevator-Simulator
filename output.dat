@@ -1,0 +1,271 @@
+
+*********************************************************************************************
+					The elevator has started				
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+					The elevator has started				
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 			elevator has started				
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 				The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 3 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 2 makes request at time 3 starting at floor 6 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 3 starting at floor 6 with the destination floor 9.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 2 makes request at time 4 starting at floor 0 with the destination floor 6.
+Person (Thread ID) 3 makes request at time 23 starting at floor 5 with the destination floor 9.
+Person (Thread ID) 4 makes request at time 18 starting at floor 9 with the destination floor 4.
+Person (Thread ID) 1 makes request at time 28 starting at floor 5 with the destination floor 6.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 15 starting at floor 1 with the destination floor 2.
+Person (Thread ID) 4 makes request at time 5 starting at floor 10 with the destination floor 4.
+Person (Thread ID) 2 makes request at time 16 starting at floor 10 with the destination floor 4.
+Person (Thread ID) 3 makes request at time 14 starting at floor 2 with the destination floor 7.
