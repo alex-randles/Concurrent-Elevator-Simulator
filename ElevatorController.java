@@ -42,8 +42,7 @@ public class ElevatorController{
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
     // all the people who will want to use the elevator 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> request; 
-    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;
-    int passengerWeight;
+    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
     // the request hashmap maps the request to the floor they are at 
     // the person making the request will join the linked queue for that floor 
     // (hashmap) {floor 0 -> linkedQueue{0 : [person1 - > person 2 -> 3}
@@ -72,7 +71,7 @@ public class ElevatorController{
 	}
 	
 	
-	// add a person into the in elevator, request or waiting queue
+	// add a person into the in elevator, request or waiting queue 
 	public synchronized void addPerson(Person person, int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap){
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
 		if (hashmap.containsKey(floor)){
@@ -105,7 +104,6 @@ public class ElevatorController{
 	}
 	
 	// remove a person from either the inElevator, request or waiting queue 
-
 	public synchronized Person removeAPerson(int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap) {
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
 		if (hashmap.containsKey(floor)){
@@ -124,52 +122,52 @@ public class ElevatorController{
 	
 	// A person wants to request the elevator, add them into request hashmap 
 	public synchronized void makeRequest(Person person){
-		addPerson(person,person.arrivalTime, request);
+		addPerson(person,person.arrivalTime, request); 
 
 		
-	}
-
-
-    // if the persons arrival time is <= current time add them to the waiting queue
-    public  synchronized void acceptRequest(){
-
-	   Person personWaiting = removeAPerson(currentTime, request);
-	   while(personWaiting != null){
-		   addPerson(personWaiting,personWaiting.arrivalFloor, waiting);
-		   removeAPerson(personWaiting.arrivalFloor, request);
-		   personWaiting  =   removeAPerson(currentTime, request);
-	   }
-
-		
-		
-
 	}
     
-
-    // this will decide which floor the elevator goes to next
+    
+    // if the persons arrival time is <= current time add them to the waiting queue 
+    public  synchronized void acceptRequest(){
+	   
+	   Person personWaiting = removeAPerson(currentTime, request); 
+	   while(personWaiting != null){
+		   addPerson(personWaiting,personWaiting.arrivalFloor, waiting); 
+		   removeAPerson(personWaiting.arrivalFloor, request);
+		   personWaiting  =   removeAPerson(currentTime, request); 
+	   }
+			
+		
+		
+		
+	}
+    
+   
+    // this will decide which floor the elevator goes to next 
     public synchronized void changeFloor(int minFloor,int maxFloor) throws InterruptedException{
+	    
 
 
-
-
-     // Example for below - this will tell which direction the elevator should go
+     
+     // Example for below - this will tell which direction the elevator should go 
      // Current floor -> 5
      // InElevator Keys -> 1,2,3
      // these keys are the peoples destination  floor
-
+     // max = 3 
+     // since max is less then current floor the elevator must go down 
 
 	 if(!(inElevator.isEmpty())){
        int max = Collections.max(inElevator.keySet());
-
        if(max < currentFloor){
 		   goingUp = false;
-		   goingDown = true;
+		   goingDown = true;                   
 	   }
 	   else{
 		   goingUp = true;
-		   goingDown = false;
+		   goingDown = false;  
 	   }
-
+       
        }
        
        else{
@@ -177,7 +175,7 @@ public class ElevatorController{
 	      // if there is no one in the elevator and its going up
 	      // and there are no people waiting on the upper floors
 	      // go down 
-	      if(!(waiting.isEmpty() && goingUp == true)){
+	      if(!(waiting.isEmpty()) && goingUp == true){
 			 int max = Collections.max(waiting.keySet());
 			 if (max < currentFloor){
 				 goingUp = false;
@@ -189,10 +187,6 @@ public class ElevatorController{
     
 
 		
-
-
-
-
       if(!(waiting.isEmpty()) || !(inElevator.isEmpty()) ){
 		if (goingUp == true){
 			   
@@ -218,36 +212,35 @@ public class ElevatorController{
 			      currentFloor--;
                  }
 			   
-	 }
+	 }  
 
 
-			 // print what floor the elevator is on
-			System.out.printf("Elevator is on floor %s************\n",this.currentFloor);
+			 // print what floor the elevator is on 
+			System.out.printf("Elevator is on floor %s************\n",this.currentFloor); 	   
 
  }
-
+			 
 
 
     }
 
 
     public synchronized void enterElevator() throws InterruptedException{
+		
+		
 
 
 
-
-
-
-	   boolean headingPrinted = false;
+	   boolean headingPrinted = false; 
 	   // remove a person who's waiting at the current floor
-	   Person personEntering = removeAPerson(currentFloor, waiting);
+	   Person personEntering = removeAPerson(currentFloor, waiting); 
 	   // while there is people waiting on the current floor
        while(personEntering!=null){
-
-				// print heading
+		   
+				// print heading 
 		   	    if (!(headingPrinted)){
 					System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
-					headingPrinted = true;
+					headingPrinted = true; 
 				}
 				
 				int combinedWeight =  this.currentWeight + personEntering.getTotalWeight()  ; 
@@ -259,25 +252,18 @@ public class ElevatorController{
 					//waiting.put(currentFloor,tmp); 
 					//System.out.println("Max weight is too high with elevator: " +  waiting); 
 					addPersonTail(personEntering, currentFloor, waiting); 
-					System.out.printf("*******************************************************************\nElevator too heavy with combined weight %d and max weight limit %d\nperson %s is exiting the elevator\n*******************************************************************\n", combinedWeight, maxWeight, personEntering); 
+					System.out.printf("**********************************************************\nElevator too heavy with combined weight %d and max weight limit %d\nPerson %s is leaving the elevator\n**********************************************************\n", combinedWeight, maxWeight, personEntering); 
 					break; 
 				}
 				
-				System.out.println("still here"); 
 				// add the persons weight to the current weight 
 				this.currentWeight += personEntering.getTotalWeight()  ; 
 				// add the person to the in elevator 
-=======
-
-				// add the persons weight to the current weight
-				this.currentWeight += personEntering.personWeight + personEntering.baggageWeight;
-				// add the person to the in elevator
->>>>>>> 7267db36de3b8f4ced5e903dae6db8bb3bfc8cfe
 				addPerson(personEntering, personEntering.destinationFloor,inElevator);
 				// print persons details
-				System.out.println(personEntering);
-				// remove another waiting person on the current floor
-		        personEntering = removeAPerson(currentFloor, waiting);
+				System.out.println(personEntering); 
+				// remove another waiting person on the current floor 
+		        personEntering = removeAPerson(currentFloor, waiting); 
 
 	   }
 
@@ -288,34 +274,30 @@ public class ElevatorController{
    
    
    public synchronized void exitElevator() throws InterruptedException{
-     // System.out.println(inElevator.isEmpty());
-
-      // remove a person from the current floor who's in the elevator
-	  Person personLeaving = removeAPerson(currentFloor, inElevator);
-      boolean headingPrinted = false;
+     // System.out.println(inElevator.isEmpty()); 
+      
+      // remove a person from the current floor who's in the elevator        
+	  Person personLeaving = removeAPerson(currentFloor, inElevator);   
+      boolean headingPrinted = false; 
       // while there are people on this floor remove them from the elevator
       while(personLeaving!=null){
-
-		 // print heading to show people are leaving
+		 
+		 // print heading to show people are leaving 
 		 if(!(headingPrinted)){
-			System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor);
-			headingPrinted = true;
+			System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
+			headingPrinted = true; 
 	     }
-
-	    // print out who's leaving
-        System.out.println(personLeaving);
+	     
+	    // print out who's leaving 
+        System.out.println(personLeaving); 
         // adjust weight according to the people who are leaving
         this.currentWeight-= personLeaving.getTotalWeight() ;
         // remove another person from this floor 
 	    personLeaving = removeAPerson(currentFloor, inElevator); 
 	  
-
-        // remove another person from this floor
-	    personLeaving = removeAPerson(currentFloor, inElevator);
-
      	}
-
-
+		
+	  
 	   
 	 notifyAll();   
 	 }
@@ -426,7 +408,7 @@ class gridLayout {
 		gridBagLayout.rowWeights = new double[]{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		elevatorFloor10 = new JLabel(new ImageIcon("images/elevator.jpg"));
+		elevatorFloor10 = new JLabel(new ImageIcon("elevator.jpg"));
 		//frame.add(elevatorFloor10);
 		GridBagConstraints gbc_elevatorFloor10 = new GridBagConstraints();
 		gbc_elevatorFloor10.insets = new Insets(0, 0, 5, 5);
@@ -435,7 +417,7 @@ class gridLayout {
 		//JLabel knight=new JLabel(new ImageIcon("knight.jpg"));
 		//background1.add(knight);
 		//frame.add(background1);
-		Image img = new ImageIcon(this.getClass().getResource("images/elevator.jpg")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("elevator.jpg")).getImage();
 		//elevatorFloor10.setIcon(new ImageIcon(img));
 		frame.getContentPane().add(elevatorFloor10, gbc_elevatorFloor10);
 		
@@ -462,7 +444,7 @@ class gridLayout {
 		
 		
 		
-		elevatorFloor9 = new JLabel(new ImageIcon("images/elevator.jpg"));
+		elevatorFloor9 = new JLabel(new ImageIcon("elevator.jpg"));
 		GridBagConstraints gbc_elevatorFloor9 = new GridBagConstraints();
 		gbc_elevatorFloor9.insets = new Insets(0, 0, 5, 5);
 		gbc_elevatorFloor9.gridx = 1;
@@ -479,7 +461,7 @@ class gridLayout {
 		//elevatorFloor8.setLayout(new OverlayLayout(elevatorFloor8));
 	     elevatorFloor8.setLayout(new BorderLayout());
 		elevatorFloor8.setIcon(new ImageIcon(img));
-		Image person = new ImageIcon(this.getClass().getResource("images/greenPersonSmall.png")).getImage();
+		Image person = new ImageIcon(this.getClass().getResource("greenPersonSmall.png")).getImage();
 		GridBagConstraints gbc_elevatorFloor8 = new GridBagConstraints();
 		gbc_elevatorFloor8.insets = new Insets(0, 0, 5, 5);
 		gbc_elevatorFloor8.gridx = 1;
@@ -598,13 +580,12 @@ class gridLayout {
 	 	}
 	 	
 	 	
-	 	elevatorFloor1.setVisible(true); 
-	 	changeFloor(8); 
-	 	addPersonGUI(6);
-	 	addPersonGUI(6);
-	 	addPersonGUI(6);
-	 	addPersonGUI(6);
-	 	addPersonGUI(6);
+	 	elevatorFloor2.setVisible(true); 
+	 	changeFloor(6); 
+	 	addPerson(7);
+	    addPerson(7);
+	 	addPerson(7);
+
 
 	
 	
@@ -677,7 +658,7 @@ class gridLayout {
 					 }).start(); 				 
 			}
 	
-	public void addPersonGUI(int floor) {
+	public void addPerson(int floor) {
 		int x = floor;
 		int y = 2;
 		for(int i=y;i<=9;i++) {

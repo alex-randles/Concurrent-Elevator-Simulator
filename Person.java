@@ -7,20 +7,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 // deadlock - 2 or more threads become interlocked 
 import java.util.*; 
 public class Person extends Thread{
-<<<<<<< HEAD
 	static final AtomicInteger idGenerator = new AtomicInteger(0);   
     int arrivalTime;
 	int id; 
-=======
-    int id = 0;
-    int arrivalTime;
->>>>>>> 7267db36de3b8f4ced5e903dae6db8bb3bfc8cfe
     int arrivalFloor;
     int destinationFloor;
     int baggageWeight;
     int personWeight;
     ElevatorController elevatorController;
-<<<<<<< HEAD
     Random random = new Random();
     
 
@@ -28,18 +22,13 @@ public class Person extends Thread{
 
     public Person(ElevatorController elevatorController){
         this.id =  idGenerator.getAndIncrement();;
-        this.arrivalTime = time();
+         this.arrivalTime = time();
         this.arrivalFloor =  arrivalFloor(); 
         this.destinationFloor = destinationFloor();
-=======
-    Random random;
-
-    public Person(ElevatorController elevatorController){
-        this.id = id;
-        this.arrivalTime = this.elevatorController.getTime();
-        this.arrivalFloor = floor();
-        this.destinationFloor = floor();
->>>>>>> 7267db36de3b8f4ced5e903dae6db8bb3bfc8cfe
+        /* testing
+        this.arrivalTime = 3;
+        this.arrivalFloor =  6; 
+        this.destinationFloor = 9;*/
         this.baggageWeight = luggage();
         this.personWeight = passengerWeight();
         this.random = new Random();
@@ -52,7 +41,6 @@ public class Person extends Thread{
 
     }
 
-<<<<<<< HEAD
 
 
     public int passengerWeight(){
@@ -74,7 +62,7 @@ public class Person extends Thread{
 	}
 	
 	public int time(){
-		 return random.nextInt((30-0)+1)+0;
+		 return random.nextInt((10-0)+1)+0;
 
 	}
 
@@ -89,28 +77,10 @@ public class Person extends Thread{
 
     public String toString(){
 		String personalDetails = String.format("id: %s, with weight %d arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, getTotalWeight(), arrivalFloor, destinationFloor, arrivalTime);
-=======
-    public int passengerWeight(){
-        return random.nextInt((100-40)+1)+40;
-    }
-
-
-    public int floor(){
-        return random.nextInt((10-0)+1)+0;
-    }
-
-    public int luggage(){
-        return random.nextInt((30-0)+1)+0;
-    }
-
-    public String toString(){
-		String personalDetails = String.format("id: %s, arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, arrivalFloor, destinationFloor, arrivalTime);
->>>>>>> 7267db36de3b8f4ced5e903dae6db8bb3bfc8cfe
 		return personalDetails; 
 		
 		
 	}
-<<<<<<< HEAD
 	
    public void writeOutput() throws IOException{
 		String outputStr = String.format("Person (Thread ID) %s makes request at time %s starting at floor %s with the destination floor %s.\n", this.id, this.arrivalTime, this.arrivalFloor, this.destinationFloor); 
@@ -145,14 +115,6 @@ public class Person extends Thread{
         try{
 			writeOutput(); 
             elevatorController.makeRequest(this);
-=======
-
-    public void run(){
-        try{
-            //System.out.printf("Person with id: %s and arrivalTime:  wants to go from floor %s to floor %s\n",id,arrivalFloor,destinationFloor);
-            elevatorController.makeRequest(this);
-            //notifyAll();
->>>>>>> 7267db36de3b8f4ced5e903dae6db8bb3bfc8cfe
         }
         catch(Exception e){
 
