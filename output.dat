@@ -206,3 +206,10 @@ Person (Thread ID) 1 makes request at time 5 starting at floor 4 with the destin
 Person (Thread ID) 2 makes request at time 5 starting at floor 3 with the destination floor 9.
 Person (Thread ID) 3 makes request at time 6 starting at floor 6 with the destination floor 4.
 Person (Thread ID) 4 makes request at time 0 starting at floor 9 with the destination floor 7.
+Person (Thread ID) 2 makes request at time 4 starting at floor 8 with the destination floor 5.
+Person (Thread ID) 3 makes request at time 1 starting at floor 2 with the destination floor 3.
+Person (Thread ID) 4 makes request at time 5 starting at floor 1 with the destination floor 3.
+*********************************************************************************************
+ 						The elevator has started					
+*********************************************************************************************
+Person (Thread ID) 1 makes request at time 8 starting at floor 7 with the destination floor 8.
