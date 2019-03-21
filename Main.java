@@ -1,10 +1,11 @@
-import java.util.*; 
-import java.lang.*; 
+import java.util.*;
+import java.lang.*;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.*; 
 import java.util.Random;
 public class Main{
+<<<<<<< HEAD
 	
 	public  static void main(String[] args) throws InterruptedException{
 		
@@ -42,11 +43,3 @@ public class Main{
 	}
 	
 }
-
-
-
-
-
-
-
-

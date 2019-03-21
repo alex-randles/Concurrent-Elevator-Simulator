@@ -22,16 +22,11 @@ public class Person extends Thread{
 
     public Person(ElevatorController elevatorController){
         this.id =  idGenerator.getAndIncrement();;
-         this.arrivalTime = time();
+        this.arrivalTime = time();
         this.arrivalFloor =  arrivalFloor(); 
         this.destinationFloor = destinationFloor();
-        /* testing
-        this.arrivalTime = 3;
-        this.arrivalFloor =  6; 
-        this.destinationFloor = 9;*/
         this.baggageWeight = luggage();
         this.personWeight = passengerWeight();
-        this.random = new Random();
         this.elevatorController = elevatorController;
         id++;
     }
@@ -41,6 +36,7 @@ public class Person extends Thread{
 
     }
 
+<<<<<<< HEAD
 
 
     public int passengerWeight(){
@@ -62,7 +58,7 @@ public class Person extends Thread{
 	}
 	
 	public int time(){
-		 return random.nextInt((10-0)+1)+0;
+		 return random.nextInt((30-0)+1)+0;
 
 	}
 
@@ -77,8 +73,7 @@ public class Person extends Thread{
 
     public String toString(){
 		String personalDetails = String.format("id: %s, with weight %d arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, getTotalWeight(), arrivalFloor, destinationFloor, arrivalTime);
-		return personalDetails; 
-		
+
 		
 	}
 	
@@ -115,6 +110,7 @@ public class Person extends Thread{
         try{
 			writeOutput(); 
             elevatorController.makeRequest(this);
+
         }
         catch(Exception e){
 
