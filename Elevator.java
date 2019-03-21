@@ -25,34 +25,6 @@ public class Elevator extends Thread{
    
    
    
-   
-   	public void writeOutput() throws IOException{
-		// this will output when a new elevator has started 
-		String headerStars = "*********************************************************************************************";					
-		String headText = " 						The elevator has started					"; 		
-		String heading = String.format("%s\n%s\n%s\n", headerStars, headText,headerStars);
-
-    	  
-    	  try{
-			  
-			 File file =new File("output.dat");
-    	     if(!file.exists()){
-    	 	     file.createNewFile();
-    	    }
-			  FileWriter fileWritter = new FileWriter(file.getName(),true);
-			  BufferedWriter bw = new BufferedWriter(fileWritter);
-              bw.write(heading);
-              bw.close();
-    	  
-    	  }
-    	 catch(IOException e){
-    	   System.out.println("Exception occurred:");
-    	   e.printStackTrace();
-      }
-		
-	}
-   
-   
    public void run(){
    try{
 	   
@@ -130,5 +102,32 @@ public class Elevator extends Thread{
 			}
 
    }
+   
+   public void writeOutput() throws IOException{
+		// this will output when a new elevator has started 
+		String headerStars = "*********************************************************************************************";					
+		String headText = " 						The elevator has started					"; 		
+		String heading = String.format("%s\n%s\n%s\n", headerStars, headText,headerStars);
+
+    	  
+    	  try{
+			  
+			 File file =new File("output.dat");
+    	     if(!file.exists()){
+    	 	     file.createNewFile();
+    	    }
+			  FileWriter fileWritter = new FileWriter(file.getName(),true);
+			  BufferedWriter bw = new BufferedWriter(fileWritter);
+              bw.write(heading);
+              bw.close();
+    	  
+    	  }
+    	 catch(IOException e){
+    	   System.out.println("Exception occurred:");
+    	   e.printStackTrace();
+      }
+		
+	}
+   
 
 }
