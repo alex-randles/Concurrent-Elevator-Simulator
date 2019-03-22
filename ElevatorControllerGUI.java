@@ -3,73 +3,36 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.*;
-import javax.swing.JLabel;
-import javax.swing.OverlayLayout;
-import javax.swing.JLayeredPane;
 import java.awt.*;
 import javax.swing.*;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.Box;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 
 
-// this clas will allow sychronized access to the elevator thread 
-// will control the actions of the elevator 
 import java.util.concurrent.*;
 import  java.util.concurrent.atomic.*; 
 import java.util.*; 
 
 
 public class ElevatorControllerGUI{
-	// GUI variables 
-    public JLabel[] elevatorFloors;
-	public Thread pause;
-	public Map<Dimension, JLabel> people;
-	public JFrame frame;
-	public JLabel elevatorFloor1; 
-	public JLabel elevatorFloor2;
-	public JLabel elevatorFloor3;
-	public JLabel elevatorFloor4;
-	public JLabel elevatorFloor5;
-	public JLabel elevatorFloor6;
-	public JLabel elevatorFloor7;
-	public JLabel elevatorFloor8;
-	public JLabel elevatorFloor9;
-	public JLabel elevatorFloor10;
-	
-	// elevator controller variables
-    public boolean goingUp; 
-    public boolean goingDown;
+    private boolean goingUp; 
+    private boolean goingDown;
     private boolean doorsOpen;  
-    public  int currentFloor; 
-    public int currentTime; 
-    public int numPeople; 
-    public int currentWeight; 
-    public int maxWeight; 
+    private  int currentFloor; 
+    private int currentTime; 
+    private int numPeople; 
+    private int currentWeight; 
+    private int maxWeight; 
     private static final AtomicInteger elevatorNumberGenerator = new AtomicInteger(1);  
-    public int elevatorNumber;
-    public Elevator elevator; 
+    private int elevatorNumber;
+    private Elevator elevator; 
     // a person will be added to the waiting queue when we the current time has reached there arrival time 
-    public static ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
+    public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
     // all the people who will want to use the elevator 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> request; 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> inElevator;   
     // the request hashmap maps the request to the floor they are at 
     // the person making the request will join the linked queue for that floor 
     // (hashmap) {floor 0 -> linkedQueue{0 : [person1 - > person 2 -> 3}
-    public grid gui; 
+    private grid gui; 
     public ElevatorControllerGUI(){
 		// decide which direction the elevator is going 
 		this.goingUp = true; 
@@ -89,16 +52,8 @@ public class ElevatorControllerGUI{
 		// assign each elevator a number
 		this.elevatorNumber = elevatorNumberGenerator.getAndIncrement(); 
 		gui = new grid(); 
+		gui.display(); 
 
-						//gui.test(); 
-
-				//gui.display(); 
-						//gui.changeFloor(10);
-		//gui.changeFloor(1); 
-			   gui.frame.setVisible(true);
-
-				//gui.test(); 
-		//grid.elevatorFloor7.setVisible(true);
 
 
 
@@ -106,6 +61,18 @@ public class ElevatorControllerGUI{
 	}
 	
 	
+	public synchronized ConcurrentHashMap getRequestQueue(){
+		   return this.request; 
+	}
+	
+	
+		public synchronized ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> getWaitingQueue(){
+		   return this.request; 
+	}
+	
+		public synchronized ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> getInElevatorQueue(){
+		   return this.inElevator; 
+	}
 	// add a person into the in elevator, request or waiting queue 
 	public synchronized void addPerson(Person person, int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap){
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
@@ -197,6 +164,10 @@ public class ElevatorControllerGUI{
     // this will decide which floor the elevator goes to next 
     public synchronized void changeFloor(int minFloor,int maxFloor) throws InterruptedException{
 	   
+	  // add people to the elevator gui 
+      gui.addPeopleToElevator(inElevator, currentFloor); 
+	   
+	   
      // Example for below - this will tell which direction the elevator should go 
      // Current floor -> 5
      // InElevator Keys -> 1,2,3
@@ -238,7 +209,7 @@ public class ElevatorControllerGUI{
       if(!(waiting.isEmpty()) || !(inElevator.isEmpty()) ){
 		  
 		 // print what floor the elevator is on 
-	    System.out.printf("Elevator %d is on floor %s************\n",this.elevatorNumber,this.currentFloor); 	 
+	    System.out.printf("Elevator %d is on floor %d\n",this.elevatorNumber,this.currentFloor); 	 
 	    
 	    // check if the next floor is max or min then decide direction   
 		if (goingUp == true){
@@ -278,8 +249,13 @@ public class ElevatorControllerGUI{
 		  
 		  
 
+		  
+
 	      //change floor on GUI
 		  gui.changeFloor(currentFloor);
+		  
+		  
+
 		  // update the time
 		  this.currentTime++; 	 
 
@@ -302,7 +278,7 @@ public class ElevatorControllerGUI{
 		        
 				// print heading 
 		   	    if (!(headingPrinted)){
-					System.out.printf("Stopping on floor %d for people\n", currentFloor); 
+					System.out.printf("Stopping on floor %d for people\n**************************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
 					System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
 					headingPrinted = true; 
 				}
@@ -322,9 +298,8 @@ public class ElevatorControllerGUI{
 				this.currentWeight += personEntering.getTotalWeight(); 
 				// add the person to the in elevator 
 				addPerson(personEntering, personEntering.getDestinationFloor(),inElevator);
-				// remove from the GUI
+				// remove from the waiting in GUI
 				gui.removePerson(personEntering); 
-				gui.addPersonToElevator(personEntering); 
 				// print persons details
 				System.out.println(personEntering); 
 				// remove another waiting person on the current floor 
@@ -344,7 +319,7 @@ public class ElevatorControllerGUI{
       boolean headingPrinted = false; 
       // while there are people on this floor remove them from the elevator
       while(personLeaving!=null){
-		  
+		 gui.emptyElevator(personLeaving); 
 		 // print heading to show people are leaving 
 		 if(!(headingPrinted)){
 			System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
@@ -372,11 +347,11 @@ public class ElevatorControllerGUI{
    
    public synchronized void transferPeople(ElevatorController faulty, ElevatorController backUp){
 	   
-	   // transfer over current values 
+	   // update values
 	   
 	   backUp.request = faulty.request;
-	   backUp.waiting = faulty.waiting;
-	   backUp.currentTime = faulty.currentTime + 1; 
+	   backUp.waiting = backUp.waiting;
+	   backUp.currentTime = backUp.currentTime  + 1; 
 	   
 	   // transfer people in elevator to current floor of backup elevator waiting queue 
 	   for ( Map.Entry<Integer,ConcurrentLinkedQueue<Person>> entry : inElevator.entrySet()) {
@@ -385,7 +360,6 @@ public class ElevatorControllerGUI{
 			  System.out.printf("Person %s is exiting on floor %d and waiting for backup elevator\n", person.getId(), currentFloor); 
 		  }
 	   }
-	   System.out.println(backUp.waiting); 
 
 	   
    }
@@ -406,54 +380,37 @@ class grid {
 
 	private JLabel[] elevatorFloors;
 	private Thread pause;
-	private Map<Dimension, JLabel> people;
-	public JFrame frame;
-	public JLabel elevatorFloor1; 
-	public JLabel elevatorFloor2;
-	public JLabel elevatorFloor3;
-	public JLabel elevatorFloor4;
-	public JLabel elevatorFloor5;
-	public JLabel elevatorFloor6;
-	public JLabel elevatorFloor7;
-	public JLabel elevatorFloor8;
-	public JLabel elevatorFloor9;
-	public JLabel elevatorFloor10;
-    public  ConcurrentHashMap<Person,JLabel> assignedLabels;
-    public ConcurrentHashMap<Dimension,JLabel> peopleInElevator; 
-    public int count;
-   // public  ConcurrentHashMap<Integer,ConcurrentLinkedQueue<JLabel>> peopleInElevator;
+	private ConcurrentHashMap<Dimension, JLabel> people;
+	private JFrame frame;
+	private JLabel elevatorFloor1; 
+	private JLabel elevatorFloor2;
+	private JLabel elevatorFloor3;
+	private JLabel elevatorFloor4;
+	private JLabel elevatorFloor5;
+	private JLabel elevatorFloor6;
+	private JLabel elevatorFloor7;
+	private JLabel elevatorFloor8;
+	private JLabel elevatorFloor9;
+	private JLabel elevatorFloor10;
+    private  ConcurrentHashMap<Person,JLabel> assignedLabels;
+    private ConcurrentHashMap<Dimension,JLabel> peopleInElevator;
+    private ConcurrentHashMap<Integer, ConcurrentLinkedQueue<JLabel>> filledElevatorSpots;
+    private int count;
+    private Image person;
+    private Image img;
 
-	public  void display() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					grid window = new grid();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	public void display(){
+	   frame.setVisible(true);
 	}
 	
-	
-		public  void test() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//addPerson(1); 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 
 	
 	public grid() {
 		initialize();
-		count = 1;
+		filledElevatorSpots =  new ConcurrentHashMap<Integer, ConcurrentLinkedQueue<JLabel>>();
 		assignedLabels = new ConcurrentHashMap<Person,JLabel>();
 	    
 
@@ -483,7 +440,7 @@ class grid {
 
 		}
 		
-		Image person = new ImageIcon(this.getClass().getResource("greenPersonSmall.png")).getImage();
+	    person = new ImageIcon(this.getClass().getResource("greenPersonSmall.png")).getImage();
 		Image img = new ImageIcon(this.getClass().getResource("/elevator.jpg")).getImage();
 
 
@@ -509,7 +466,7 @@ class grid {
 		
 
 
-		elevatorFloor8 = new JLabel("");
+		elevatorFloor8 = new JLabel();
 		elevatorFloor8.setLayout(new GridLayout(2,5));
 		GridBagConstraints gbc_elevatorFloor8 = new GridBagConstraints();
 		gbc_elevatorFloor8.insets = new Insets(0, 0, 5, 5);
@@ -596,24 +553,12 @@ class grid {
 	
 
 		
-		peopleInElevator = new ConcurrentHashMap<Dimension,JLabel>();
-		for(int i = 0; i<=10;i++){
-			for(int j=0;j<elevatorFloors.length;j++){
-				JLabel over = new JLabel("");
-				over.setIcon(new ImageIcon(person));
-				over.setText(""+i); 
-				over.setVisible(false);
-				elevatorFloors[j].add(over);
-				peopleInElevator.put(new Dimension(j,i), over);
-		}
-	}
-		
 
 	    // create all the people
 		people = new ConcurrentHashMap<Dimension, JLabel>();
 		for (int x = 2;x<10;x++) {
 			
-			for (int y =0;y<10;y++) {
+			for (int y =0;y<=10;y++) {
 				
 				JLabel tmpLabel = new JLabel();
 				GridBagConstraints tmp = new GridBagConstraints();
@@ -637,13 +582,7 @@ class grid {
 	 	
 	 	// set elevator visible at bottom floor 
 	 	elevatorFloors[0].setVisible(true); 
-	 	//changeFloor(1); 
-	    /*elevatorFloor1.setLayout(new BorderLayout());
-	 	elevatorFloor1.add(over,BorderLayout.NORTH);
-	 	elevatorFloor1.add(over,BorderLayout.SOUTH);*/
-	 			
-
-
+	 
 		
 		
 		
@@ -669,10 +608,8 @@ class grid {
 
 	
     
-	public void changeFloor(int floorNumber) {
+	public synchronized void changeFloor(int floorNumber) {
 
-		//9 9 8 7 6 
-		         								//int floorNumber = floor -  1; 
 
 				 new Thread(new Runnable() {
 						 
@@ -685,8 +622,7 @@ class grid {
 										break; 
 							    	}
 								}
-							
-									//System.out.println(currentFloor);
+
 								if(currentFloor > floorNumber) {
 								   for(int j=currentFloor;j>=floorNumber;j--) {
 										 elevatorFloors[j].setVisible(true);
@@ -698,19 +634,15 @@ class grid {
 							 
 								}
 								else {
-									   // 6 > 3 6
-									  // 9 8 7 6 5 4 4 3 2 1
-									  
-									    
-									   	//1 1 < 9   
+
 										for(int x=currentFloor;x<floorNumber-1;x++) {
 											 elevatorFloors[x].setVisible(true);
 											 Thread.sleep(1000);
 											 elevatorFloors[x].setVisible(false);
 											 elevatorFloors[x+1].setVisible(true);
 
-								}
-								}
+											}
+									}
 							    
 								}
 							 
@@ -731,7 +663,7 @@ class grid {
 	
 
 	
-	public void removePersonFromElevator(Person person){
+	public synchronized void removePersonFromElevator(Person person){
 		for(int i = 0; i<6;i++){
 			JLabel tmp = peopleInElevator.get(new Dimension(person.getDestinationFloor(), i));
 			String id  = String.valueOf(person.getId());
@@ -742,63 +674,69 @@ class grid {
 			
 		}
 	}
-  public void addPersonToElevator(Person person){
+  
+
+	public synchronized void emptyElevator(Person person){
+				ConcurrentLinkedQueue<JLabel> tmp = new ConcurrentLinkedQueue<JLabel>(); 
+				int id = (int)person.getId();
+				if (filledElevatorSpots.containsKey(id)){
+					tmp = filledElevatorSpots.get((int)person.getId());
+					for(JLabel jlabel :tmp){
+							jlabel.setVisible(false); 
+
+						
+					}
+				}
+			
+			
+			
+		}
 		
-
-	
-      new Thread(new Runnable() {
-						 
-						 public void run() {
-							 try {
-								int currentFloor = getCurrentFloor(); 
-								String id  = String.valueOf(person.getId());
-								JLabel tmp = peopleInElevator.get(new Dimension(currentFloor, count));
-								if (person.getArrivalFloor() < person.getDestinationFloor()){
-								for(int i=person.getArrivalFloor(); i<person.getDestinationFloor();i++){
-										tmp.setVisible(true);
-										tmp.setText(id); 
-										tmp = peopleInElevator.get(new Dimension(i, count ));
-										Thread.sleep(100); 
-
-
-									}
-	
-							   }
-							else{
-								for(int i=person.getArrivalFloor(); i>person.getDestinationFloor();i--){
-												tmp.setVisible(true);
-												tmp.setText(id); 
-												tmp = peopleInElevator.get(new Dimension(i, count));
-								}
-							}
-						count++; 
 		
-
-								}
-							 
-								
-
-							 catch(InterruptedException e) {
-								 
-							 }
-						 }
-							 
-
-					 }).start(); 			
-	
+		public synchronized void addPeopleToElevator(ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> currentlyInElevator, int currentFloor){
+		    ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
+			for (Integer key: currentlyInElevator.keySet()) {
+                 tmp = currentlyInElevator.get(key);
+                 for(Person person: tmp){
+					  int id = (int)person.getId();
+					  JLabel over = new JLabel();
+					  over.setIcon(new ImageIcon(new ImageIcon(this.getClass().getResource("greenPersonSmall.png")).getImage()));
+					  over.setText(""+id); 
+					  over.setVisible(true);
+					  elevatorFloors[currentFloor].add(over);
+					  ConcurrentLinkedQueue<JLabel> tmpLabels = new ConcurrentLinkedQueue<JLabel>(); 
+         			   if (filledElevatorSpots.containsKey(id)){
+							tmpLabels = filledElevatorSpots.get(id);
+							tmpLabels.add(over);
+							filledElevatorSpots.put(id, tmpLabels); 
+						}
+					  else{
+						tmpLabels.add(over); 
+						filledElevatorSpots.put(id, tmpLabels); 
+			
+		}
+			
+		
+				 }
+				}
+			
+		}
 	
 		
-	}
+		
+		
+		
+	
 	 
 		
 		
 	
-	public void addPerson(Person person) {
+	public synchronized void addPerson(Person person) {
 		int floor = 10 -person.getArrivalFloor();
 		String id  = String.valueOf(person.getId());
 		JLabel tmpLabel; 
 		// max floor is (9,9) 
-		for(int y = 2; y<10;y++){
+		for(int y = 2; y<=10;y++){
 			tmpLabel = people.get(new Dimension(y,floor));
 			if (!(tmpLabel.isVisible())){
 				tmpLabel.setVisible(true); 
@@ -810,7 +748,7 @@ class grid {
 	}
 	
 	
-	public void removePerson(Person person){
+	public synchronized void removePerson(Person person){
 	    	
 
 
@@ -818,11 +756,10 @@ class grid {
 				 new Thread(new Runnable() {
 						 
 						 public void run() {
-							 try {
-							        		Thread.sleep(1000); 
-
-							    	   JLabel assignedLabel = assignedLabels.get(person);
-	   assignedLabel.setVisible(false); 
+							 try{
+								 Thread.sleep(1000); 
+								 JLabel assignedLabel = assignedLabels.get(person);
+								 assignedLabel.setVisible(false); 
 
 								}
 							 

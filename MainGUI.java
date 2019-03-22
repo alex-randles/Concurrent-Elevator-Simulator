@@ -11,18 +11,16 @@ public class MainGUI{
 		
 	  ElevatorControllerGUI elevatorController = new ElevatorControllerGUI(); 
 	  Elevator elevator = new Elevator(elevatorController);
-
 	  
 	  // start the elevator and wait for request
 	  elevator.start(); 
-	//  elevatorController.initialize(); 
 	  
 	  
 	  // create thread pool 
-	  ExecutorService executor = Executors.newFixedThreadPool(100);
+	  ExecutorService executor = Executors.newFixedThreadPool(5);
 
 	 
-	  // create 100 random people
+	  // create random people
 	  Person[] people = new Person[5];  
 	  for (int i=0; i<5; i++){
 		  people[i] = new Person(elevatorController);

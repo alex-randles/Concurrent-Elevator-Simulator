@@ -54,29 +54,34 @@ public class Elevator extends Thread{
 	   // write that an elevator has started 
 	   writeOutput(); 
 	   
-	   while(!(faulty.get())){
-		  {
+	   
+			while(!(faulty.get())){
+				{
 		    
-		   // control the elevators actions 
-		   elevatorController.acceptRequest(); 
-		   elevatorController.enterElevator(); 	
-		   elevatorController.exitElevator(); 	
-		   elevatorController.changeFloor(minFloor,maxFloor);
-		   // create a random fault, this will create one after a random time between 0 - 10 if createFault = true 
-		   randomFault(); 
-		   // sleep for 100 ticks between floors
-		   Thread.sleep(100); 
-		}
-	   }
-     
-     }
-	  
+				// control the elevators actions 
+				elevatorController.acceptRequest(); 
+				elevatorController.enterElevator(); 	
+				elevatorController.exitElevator(); 	
+				elevatorController.changeFloor(minFloor,maxFloor);
+				// create a random fault, this will create one after a random time between 0 - 10 if createFault = true 
+				randomFault(); 
+				// sleep for 100 ticks between floors
+				Thread.sleep(100); 
+			}
+		  }
+		  
+	  }
+		  
+		  
+		  
+		  
 	 catch(Exception e){
 		 
 		 try{
 			 	// write that an elevator has started 
 				writeOutput(); 
-	   
+				
+				// if a GUI elevator has been created 
 				while(!(faulty.get())){
 							{
 		    
@@ -85,8 +90,8 @@ public class Elevator extends Thread{
 							elevatorControllerGUI.enterElevator(); 	
 							elevatorControllerGUI.exitElevator(); 	
 							elevatorControllerGUI.changeFloor(minFloor,maxFloor);
-							// sleep for 100 ticks between floors
-							Thread.sleep(1000); 
+							// sleep for 2000 ticks between floors to show movement within GUI 
+							Thread.sleep(2000); 
 							}
 			
 

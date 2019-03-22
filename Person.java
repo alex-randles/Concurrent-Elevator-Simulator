@@ -30,13 +30,11 @@ public class Person extends Thread{
     
     // constructor for the elevator with GUI 
     public Person(ElevatorControllerGUI elevatorController){
-        this.id =  idGenerator.getAndIncrement();
-        this.arrivalTime = setArrivalTime(); 
-         //this.arrivalFloor =  setArrivalFloor(); 
-         this.arrivalFloor =  3;
-		 this.destinationFloor = 7;
-
-         this.baggageWeight = setLuggageWeight();
+         this.id =  idGenerator.getAndIncrement();
+         this.arrivalTime = random.nextInt((20-1)+1)+0; 
+         this.arrivalFloor =   random.nextInt((4-2)+1)+2; 
+		 this.destinationFloor =  random.nextInt((10-4)+1)+4;        
+		 this.baggageWeight = setLuggageWeight();
          this.personWeight = setPassengerWeight();
          this.random = new Random();
          this.elevatorControllerGUI = elevatorController;
@@ -145,7 +143,7 @@ public class Person extends Thread{
 
     public void run(){
         try{
-			//System.out.print(this); 
+			System.out.print(this); 
 			// write to output
 			writeOutput();
 			// request an elevator  

@@ -24,14 +24,13 @@ public class MainFault{
 	  ExecutorService executor = Executors.newFixedThreadPool(20);
 
 	 
-	  // create 100 random people
+	  // create 20 random people to show the transfer of people from faulty elevator to backup elevator
 	  Person[] people = new Person[20];  
 	  for (int i=0; i<20; i++){
 		  people[i] = new Person(elevatorController);
 	  }
 	  
 	  for (Person p: people){
-		  System.out.println(p); 
 		  executor.submit(p); 
 	  }
 

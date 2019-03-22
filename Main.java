@@ -27,10 +27,7 @@ public class Main{
 		  people[i] = new Person(elevatorController);
 	  }
 	  
-	  Person test = new Person(elevatorController);
-	  executor.submit(test); 
 	  for (Person p: people){
-		 // System.out.println(p); 
 		  executor.submit(p); 
 	  }
 	

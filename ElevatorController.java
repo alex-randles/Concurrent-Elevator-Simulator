@@ -9,14 +9,14 @@ public class ElevatorController{
     public boolean goingUp; 
     public boolean goingDown;
     private boolean doorsOpen;  
-    public int currentFloor; 
+    private int currentFloor; 
     public int currentTime; 
-    public int numPeople; 
-    public int currentWeight; 
-    public int maxWeight; 
+    private int numPeople; 
+    private int currentWeight; 
+    private int maxWeight; 
     private static final AtomicInteger elevatorNumberGenerator = new AtomicInteger(1);  
-    public int elevatorNumber;
-    public Elevator elevator; 
+    private int elevatorNumber;
+    private Elevator elevator; 
     // a person will be added to the waiting queue when we the current time has reached there arrival time 
     public ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> waiting; 
     // all the people who will want to use the elevator 
@@ -53,7 +53,7 @@ public class ElevatorController{
 
 	}
 	
-	
+
 	// add a person into the in elevator, request or waiting queue 
 	public synchronized void addPerson(Person person, int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap){
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
@@ -179,7 +179,7 @@ public class ElevatorController{
 	  // if there are people waiting or in the elevator 
       if(!(waiting.isEmpty()) || !(inElevator.isEmpty()) ){
 		  
-		 String elevatorFloorString =  String.format("Elevator %d is on floor %s************\n",this.elevatorNumber,this.currentFloor);
+		 String elevatorFloorString =  String.format("Elevator %d is on floor %s\n",this.elevatorNumber,this.currentFloor);
 		 
 		 // write to output.dat 
 		 writeOutput(elevatorFloorString); 
@@ -245,12 +245,12 @@ public class ElevatorController{
 		        
 				// print heading 
 		   	    if (!(headingPrinted)){
-					String enteringElevator = String.format("Stopping on floor %d for people\n****************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
+					String enteringElevator = String.format("Stopping on floor %d for people\n**************************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
 					writeOutput(enteringElevator);
 					System.out.print(enteringElevator); 
 				}
 				
-				// check if is overloaded 
+				// check if elevator will become overloaded 
 				int combinedWeight =  this.currentWeight + personEntering.getTotalWeight();
 				
 				if (combinedWeight >= maxWeight){
