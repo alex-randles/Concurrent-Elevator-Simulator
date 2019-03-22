@@ -1,11 +1,11 @@
-// this will create 100 random people
+// this changes the person weight to show an overloaded elevator 
 import java.util.*; 
 import java.lang.*; 
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.*; 
 import java.util.Random;
-public class Main{
+public class MainWeight{
 	
 	public  static void main(String[] args) throws InterruptedException{
 		
@@ -18,19 +18,18 @@ public class Main{
 	  
 	  
 	  // create thread pool 
-	  ExecutorService executor = Executors.newFixedThreadPool(100);
+	  ExecutorService executor = Executors.newFixedThreadPool(5);
 
 	 
 	  // create 100 random people
-	  Person[] people = new Person[100];  
-	  for (int i=0; i<100; i++){
+	  Person[] people = new Person[5];  
+	  for (int i=0; i<5; i++){
 		  people[i] = new Person(elevatorController);
+		  // this will change the persons weight to show an overloaded elevator 
+		  people[i].setWeight(150); 
 	  }
 	  
-	  Person test = new Person(elevatorController);
-	  executor.submit(test); 
 	  for (Person p: people){
-		 // System.out.println(p); 
 		  executor.submit(p); 
 	  }
 	
@@ -46,10 +45,6 @@ public class Main{
 	}
 	
 }
-
-
-
-
 
 
 

@@ -1,94 +1,131 @@
 import java.util.*;
 import  java.io.*; 
-import java.util.concurrent.atomic.AtomicInteger;
-// one access to thread at a time 
-//  not thread that is synchronized, its the method acting on it
-// monitor controls object of a thread, even though its not one 
-// deadlock - 2 or more threads become interlocked 
-import java.util.*; 
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+
 public class Person extends Thread{
-	static final AtomicInteger idGenerator = new AtomicInteger(0);   
-    int arrivalTime;
-	int id; 
-    int arrivalFloor;
-    int destinationFloor;
-    int baggageWeight;
-    int personWeight;
-    ElevatorController elevatorController;
+	private static final AtomicInteger idGenerator = new AtomicInteger(1);   
+    private int arrivalTime;
+	private int id; 
+    public int arrivalFloor;
+    public int destinationFloor;
+    private int baggageWeight;
+    private int personWeight;
     Random random = new Random();
-    
+    private ElevatorController elevatorController; 
+    private ElevatorControllerGUI elevatorControllerGUI; 
 
 
-
+    // constructor for the elevator without GUI 
     public Person(ElevatorController elevatorController){
-        this.id =  idGenerator.getAndIncrement();;
-        this.arrivalTime = time();
-        this.arrivalFloor =  arrivalFloor(); 
-        this.destinationFloor = destinationFloor();
-        this.baggageWeight = luggage();
-        this.personWeight = passengerWeight();
-        this.elevatorController = elevatorController;
-        id++;
-    }
-
-    public int getCurrentFloor(){
-         return arrivalFloor; 
-
-    }
-
-<<<<<<< HEAD
-
-
-    public int passengerWeight(){
-        return random.nextInt((100-40)+1)+40;
-        // 40 - 100 kg - 1000kg max
-    }
-
-    public int arrivalFloor(){
-        return  random.nextInt((10-0)+1)+0;
+        this.id =  idGenerator.getAndIncrement();
+         this.arrivalTime = setArrivalTime();
+         this.arrivalFloor =  setArrivalFloor();
+		 this.destinationFloor = setDestinationFloor();
+         this.baggageWeight = setLuggageWeight();
+         this.personWeight = setPassengerWeight();
+         this.random = new Random();
+         this.elevatorController = elevatorController;
     }
     
-    public int destinationFloor(){
-		int randomFloor = random.nextInt((10-0)+1)+0;
+    // constructor for the elevator with GUI 
+    public Person(ElevatorControllerGUI elevatorController){
+        this.id =  idGenerator.getAndIncrement();
+        this.arrivalTime = setArrivalTime(); 
+         //this.arrivalFloor =  setArrivalFloor(); 
+         this.arrivalFloor =  3;
+		 this.destinationFloor = 7;
+
+         this.baggageWeight = setLuggageWeight();
+         this.personWeight = setPassengerWeight();
+         this.random = new Random();
+         this.elevatorControllerGUI = elevatorController;
+    }
+
+
+
+    public synchronized int setPassengerWeight(){
+		// weight between 40 - 100 
+        return random.nextInt((100-40)+1)+40;
+    }
+
+    public synchronized int setArrivalFloor(){
+		//  random arrival floor
+        return  random.nextInt((10-1)+1)+0;
+    }
+    
+    public synchronized int setDestinationFloor(){
+		// ensure arrival floor != destination floor
+		int randomFloor = random.nextInt((10-1)+1)+0;
 		while(this.arrivalFloor == randomFloor){
-			randomFloor = random.nextInt((10-0)+1)+0;
+			randomFloor = random.nextInt((10-1)+1)+0;
 		}
 		
 		return randomFloor; 
 	}
 	
-	public int time(){
+	
+
+	// this is used in the MainWeight.java to demo an overweight elevator 
+	// each person is set to 200 meaning > 3 people will overload the elevator 
+	
+	public synchronized void setWeight(int weight){
+		this.personWeight = weight; 
+	}	
+	
+	
+	public synchronized int setArrivalTime(){
+		 // random time between 0-30
 		 return random.nextInt((30-0)+1)+0;
 
 	}
 
-    public int luggage(){
+    public synchronized int setLuggageWeight(){
+		// 0 - 30 baggage weight
         return random.nextInt((30-0)+1)+0;
-        // 0 - 30kg 
     }
     
-    public int getTotalWeight(){
+    public synchronized int getTotalWeight(){
 		return  this.baggageWeight + this.personWeight;
 	}
 
-    public String toString(){
-		String personalDetails = String.format("id: %s, with weight %d arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s",id, getTotalWeight(), arrivalFloor, destinationFloor, arrivalTime);
+    public synchronized long getId(){
+		return this.id;
+	}
 
+    public synchronized int getDestinationFloor(){
+		return  this.destinationFloor;
+	}
+	
+	
+	 public synchronized int getArrivalFloor(){
+		return  this.arrivalFloor;
+	}
+	
+	    public synchronized int getArrivalTime(){
+		return  this.arrivalTime;
+	}
+
+    public synchronized String toString(){
+		// passengers details 
+		String personalDetails = String.format("id: %s, with weight %d arrivalFloor: %s, destinationFloor: %s and arrivalTime: %s\n",this.id, this.getTotalWeight(), this.arrivalFloor, this.destinationFloor, this.arrivalTime);
+		return personalDetails; 
+		
 		
 	}
 	
-   public void writeOutput() throws IOException{
+
+	
+   // write to output.dat
+   public synchronized void writeOutput(){
 		String outputStr = String.format("Person (Thread ID) %s makes request at time %s starting at floor %s with the destination floor %s.\n", this.id, this.arrivalTime, this.arrivalFloor, this.destinationFloor); 
-		/*BufferedWriter writer = new BufferedWriter(new FileWriter("output.dat"));
-		PrintWriter pw = new PrintWriter(writer);
-		pw.println(outputStr);
-		writer.close();*/
+
 		
 
     	  
     	  try{
 			  
-			 File file =new File("output.dat");
+			 File file =new File("request.dat");
     	     if(!file.exists()){
     	 	     file.createNewFile();
     	    }
@@ -108,11 +145,22 @@ public class Person extends Thread{
 
     public void run(){
         try{
-			writeOutput(); 
+			//System.out.print(this); 
+			// write to output
+			writeOutput();
+			// request an elevator  
             elevatorController.makeRequest(this);
-
         }
-        catch(Exception e){
+        catch(Exception e1){
+			
+			try{
+				writeOutput();
+				elevatorControllerGUI.makeRequest(this);
+		    }
+		    
+		    catch(Exception e2){
+				e2.printStackTrace(); 
+			}
 
 
         }
