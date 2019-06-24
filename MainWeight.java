@@ -26,7 +26,7 @@ public class MainWeight{
 	  for (int i=0; i<5; i++){
 		  people[i] = new Person(elevatorController);
 		  // this will change the persons weight to show an overloaded elevator 
-		  people[i].setWeight(150); 
+		  people[i].setWeight(300); 
 	  }
 	  
 	  for (Person p: people){

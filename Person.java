@@ -1,5 +1,5 @@
 import java.util.*;
-import  java.io.*; 
+import java.io.*; 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
 
@@ -31,9 +31,9 @@ public class Person extends Thread{
     // constructor for the elevator with GUI 
     public Person(ElevatorControllerGUI elevatorController){
          this.id =  idGenerator.getAndIncrement();
-         this.arrivalTime = random.nextInt((20-1)+1)+0; 
+         this.arrivalTime = random.nextInt((30-1)+1)+1; 
          this.arrivalFloor =   random.nextInt((4-2)+1)+2; 
-		 this.destinationFloor =  random.nextInt((10-4)+1)+4;        
+		 this.destinationFloor =  random.nextInt((10-5)+1)+5;      
 		 this.baggageWeight = setLuggageWeight();
          this.personWeight = setPassengerWeight();
          this.random = new Random();
@@ -74,7 +74,7 @@ public class Person extends Thread{
 	
 	public synchronized int setArrivalTime(){
 		 // random time between 0-30
-		 return random.nextInt((30-0)+1)+0;
+		 return random.nextInt((30-1)+1)+1;
 
 	}
 
@@ -143,7 +143,6 @@ public class Person extends Thread{
 
     public void run(){
         try{
-			System.out.print(this); 
 			// write to output
 			writeOutput();
 			// request an elevator  

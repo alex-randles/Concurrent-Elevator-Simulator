@@ -5,7 +5,6 @@ import java.io.*;
 
 
 public class ElevatorController{
-	public static gridLayout gui; 
     public boolean goingUp; 
     public boolean goingDown;
     private boolean doorsOpen;  
@@ -41,7 +40,8 @@ public class ElevatorController{
 		// time will go up in every time the elevator goes up a floor 
 		this.currentTime = 0; 
 		this.currentWeight = 0 ;
-		this.maxWeight = 200; 
+		// maximum weight limit 
+		this.maxWeight = 500; 
 		// assign each elevator a number
 		this.elevatorNumber = elevatorNumberGenerator.getAndIncrement(); 
 
@@ -217,7 +217,7 @@ public class ElevatorController{
 		
 	   //elevator sleeping if no people waiting or in the elevator 
        if (waiting.isEmpty() && inElevator.isEmpty()){
-		        String sleepingOutput = String.format("The elevator is sleeping on floor %d\n",currentFloor);
+		        String sleepingOutput = String.format("Elevator %d is sleeping on floor %d\n",this.elevatorNumber, this.currentFloor);
 		        writeOutput(sleepingOutput); 
 				System.out.printf(sleepingOutput); 			
 			}
@@ -248,6 +248,7 @@ public class ElevatorController{
 					String enteringElevator = String.format("Stopping on floor %d for people\n**************************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
 					writeOutput(enteringElevator);
 					System.out.print(enteringElevator); 
+					headingPrinted = true; 
 				}
 				
 				// check if elevator will become overloaded 
@@ -289,19 +290,17 @@ public class ElevatorController{
       while(personLeaving!=null){
 		 // print heading to show people are leaving 
 		 if(!(headingPrinted)){
-			String exitingElevator = String.format("****************\nLetting people out on floor %s...\n",currentFloor); 
+			String exitingElevator = String.format("*******************************\nLetting people out on floor %s...\n",currentFloor); 
 			writeOutput(exitingElevator); 
 			System.out.print(exitingElevator); 
 			headingPrinted = true; 
 	     }
 	     
-	    // print out who's leaving 
-	    writeOutput(personLeaving.toString()); 
+	    // print/output who's leaving elevator
+	     writeOutput(personLeaving.toString()); 
         System.out.print(personLeaving); 
         // adjust weight according to the people who are leaving
         this.currentWeight-= personLeaving.getTotalWeight() ;
-        // output who's leaving 
-        writeOutput(personLeaving.toString()); 
         // remove another person from this floor 
 	    personLeaving = removeAPerson(currentFloor,inElevator); 
 	  
@@ -315,6 +314,12 @@ public class ElevatorController{
    
    
    public synchronized void transferPeople(ElevatorController faulty, ElevatorController backUp) {
+	   // outptut a fault has occured 
+	   // print out that another elevator is being dispatched 
+	   String faultWarning = "**********FAULT PEOPLE BEING TRANSFERRED TO ANOTHER ELEVATOR***********\n**********Starting backup elevator from floor 1************************\n"; 
+	   System.out.println(faultWarning);
+	   writeOutput(faultWarning);   
+	   
 	   
 	   // transfer over current values 
 	   
@@ -326,7 +331,7 @@ public class ElevatorController{
 	   for ( Map.Entry<Integer,ConcurrentLinkedQueue<Person>> entry : inElevator.entrySet()) {
 		  for (Person person : entry.getValue()){
 			  addPersonFirst(person, currentFloor,backUp.waiting); 
-			  String backupWarning = String.format("Person %s is exiting on floor %d and waiting for backup elevator\n", person.getId(), currentFloor);
+			  String backupWarning = String.format("Person %d is exiting on floor %d and waiting for backup elevator\n", person.getId(), this.currentFloor);
 			  writeOutput(backupWarning); 
 			  System.out.print(backupWarning); 
 		  }

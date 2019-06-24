@@ -40,7 +40,7 @@ public class Elevator extends Thread{
       this.elevatorController = elevatorController; 
       this.maxFloor = 10;
       this.minFloor = 1; 
-      this.faultTime = random.nextInt((10-0)+1)+0;
+      this.faultTime = random.nextInt((10-5)+1)+5;
       this.createFault = createFault; 
       this.faulty =  new AtomicBoolean(false);
    } 
@@ -145,9 +145,6 @@ public class Elevator extends Thread{
 	   
 	   
 	   if(elevatorController.getTime() == faultTime && createFault == true){
-		        // print out that another elevator is being dispatched 
-				System.out.println("**********FAULT PEOPLE BEING TRANSFERRED TO ANOTHER ELEVATOR***********"); 
-				System.out.println("**********Starting backup elevator from floor 0************************"); 
 				// create a backup elevator 
 				ElevatorController backUpElevatorController = new ElevatorController(); 
 				elevatorController.transferPeople(elevatorController, backUpElevatorController); 

@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="ProgId" content="Word.Document">
+  <meta name="Generator" content="Microsoft Word 10">
+  <meta name="Originator" content="Microsoft Word 10">
+  <meta name="GENERATOR" content="Mozilla/4.5 [en] (WinNT; I) [Netscape]"><title>Problem Specification:</title>
+  
+  <link rel="File-List" href="file:///W:/public_html/Project%201-%20Elevator%20Problem_files/filelist.xml"><!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author> </o:Author>
+  <o:LastAuthor>Shannon Tauro</o:LastAuthor>
+  <o:Revision>6</o:Revision>
+  <o:TotalTime>46</o:TotalTime>
+  <o:Created>2003-07-25T21:20:00Z</o:Created>
+  <o:LastSaved>2003-07-25T21:32:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>928</o:Words>
+  <o:Characters>5296</o:Characters>
+  <o:Company>CECS</o:Company>
+  <o:Lines>44</o:Lines>
+  <o:Paragraphs>12</o:Paragraphs>
+  <o:CharactersWithSpaces>6212</o:CharactersWithSpaces>
+  <o:Version>10.3501</o:Version>
+ </o:DocumentProperties>
+ <o:CustomDocumentProperties>
+  <o:_AdHocReviewCycleID dt:dt="float">-527814416</o:_AdHocReviewCycleID>
+  <o:_EmailSubject dt:dt="string"></o:_EmailSubject>
+  <o:_AuthorEmail dt:dt="string">shireesh@ics.uci.edu</o:_AuthorEmail>
+  <o:_AuthorEmailDisplayName dt:dt="string">Shireesh Verma</o:_AuthorEmailDisplayName>
+  <o:_ReviewingToolsShownOnce dt:dt="string"></o:_ReviewingToolsShownOnce>
+ </o:CustomDocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+
+  <style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:1012221731;
+	mso-list-template-ids:-1518293586;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1230767782;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-607876820 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1609005354;
+	mso-list-template-ids:1143397884;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+  </style><!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="4098"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]--></head>
+<body style="" lang="EN-US" link="#0000ff" vlink="#800080">
+<div style="font-family: Verdana;" class="Section1">
+<h3 style="font-family: Verdana;"><i>The Elevator Problem</i></h3>
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">
+<h4><b>Problem Specification:</b></h4>
+</div>
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">You have been hired
+by an airport to build&nbsp;an elevator controller in the 10 floor
+terminal building which is used by people going from floor to floor
+(some of whom have trolleys with baggage). The elevator(s) can be represented using threads. Each
+person boarding or leaving the elevator is also represented by a
+thread.
+You must implement the methods called by the arriving person (e.g. a method <span style="font-family: Courier New; font-weight: bold;">ArrivingGoingFromTo(int
+atFloor,
+int toFloor)</span> should wake up an elevator (if necessary) and tell
+it which floor to go to). The elevator speed is fast but not
+instantaneous, taking only 100 ticks to go from one floor to the adjacent one. A <a href="#vanilla">vanilla option</a> would be to assume the following:</div>
+<ul style="font-family: Verdana;">
+  <li class="MsoNormal" style="text-align: justify; font-family: Verdana;">There is only one
+elevator and it has a maximum weight capacity; obviously this capacity <span style="font-weight: bold;">is</span>
+affected by the trolleys (as a first approximation you can take these
+to be of fixed weight, say equal to that of two people). &nbsp;When the
+weight of people and trolleys in the lift exceeds the maximum weight,
+the lift will display an error and remain at the floor until sufficient
+people (and their trolleys) exit.&nbsp;</li>
+  <li class="MsoNormal" style="text-align: justify; font-family: Verdana;">The elevator can measure the details (weight, ID, arrival floor, destination floor
+etc) of the people when they enter and does not allow more than a specified weight in the elevator.</li>
+  <li class="MsoNormal" style="text-align: justify; font-family: Verdana;">There is only one
+person entering the elevator at a floor at a time.</li>
+  <li class="MsoNormal" style="text-align: justify; font-family: Verdana;">The elevator
+ascends one floor at a time without skipping floors.</li>
+  <li class="MsoNormal" style="text-align: justify; font-family: Verdana;">When not in
+service, the elevator waits at the last floor it visited
+and
+'sleeps'.</li>
+</ul>
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">You have to come up
+with
+a way of storing the requests to the elevator e.g. if a person is
+accessing
+the elevator at the 3<sup>rd</sup> floor and some body is trying to get
+access from the 5<sup>th</sup> floor then latter person has to wait
+before
+he could place his request. In other words (s)he has to be put in a
+queue.&nbsp;
+Also if the elevator is going upwards all the requests for the
+destinations
+downwards should not be accepted until it starts its downward motion
+and
+vice versa.<br>&nbsp;<br>These specifications are for the&nbsp;<a href="#vanilla">vanilla option</a> of the
+implementation.&nbsp;
+Any form of creativity that you feel like putting in that will add
+interest
+to my marking of the project (variable weight trolleys, Nice GUIs, multiple
+elevators, 'smart'
+elevators
+with AI, random events such as faulty lifts etc) is encouraged and marks awarded for the project will
+reflect
+this. &nbsp;Making use of java large-scale thread management support would be essential.
+</div>
+
+<h4 class="MsoNormal" style="text-align: justify;"><b>Hint: &nbsp;One Approach to the Problem Might be the following:</b></h4>
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">The program will contain
+two classes &#8220;elevator&#8221; and &#8220;person&#8221;.&nbsp; Each "person" should be generated with a random
+arrival
+time, arrival floor and destination floor and have a unique ID for
+identification
+purposes. &nbsp;</div>
+In order to simulate
+the
+100 ticks between the two consecutive floors, you can use the&nbsp;&nbsp;<span style="font-family: Courier New; font-weight: bold;">wait
+(100)</span> construct.&nbsp;
+
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">You can assume 100
+ticks
+is equivalent to your 1 unit of time (discussed above).</div>
+<p class="MsoNormal" style="text-align: justify;"></p><p class="MsoNormal" style="text-align: justify; font-family: Verdana;"><span style="color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; display: inline ! important; float: none;">In order to compile your java code, I should just be able to do so with java compiler with &#8220;</span><b style="color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">javac &lt;filename&gt;</b><span style="color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; display: inline ! important; float: none;">&#8220; and after it gets compiled execute it with &#8220;</span><b style="color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">java &lt;filename(executable)&gt;</b><span style="color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; display: inline ! important; float: none;">&#8221;. &nbsp;<span style="font-weight: bold; font-style: italic;">Please do not rely on my using an IDE for the execution of your code</span>.</span></p><h4 class="MsoNormal" style="text-align: justify;">
+<b>Output file:</b></h4>
+<div class="MsoNormal" style="text-align: justify; font-family: Verdana;">The format for an output
+file should be something like following:</div>
+<p class="MsoNormal" style="text-align: justify; font-family: Verdana;">&#8220;<b>Person (Thread
+ID)
+# makes request at time # starting at floor # with the destination
+floor
+#.</b>&#8221;
+</p>
+<p class="MsoNormal" style="text-align: justify; font-family: Verdana;">There should be as
+many
+lines printed as are the number of requests.&nbsp; You should also
+generate
+an output file output.dat<b> </b>to
+store your output.
+</p>
+<p class="MsoNormal" style="text-align: justify;"><b style="font-family: Verdana;">Note: You must
+assume
+that you the starting time for the first request is 0.</b><span style="font-family: Verdana;">
+</span><br>
+&nbsp;
+</p>
+<p class="MsoNormal" style="text-align: justify;"><b><span style="font-family: Verdana;">Deliverables and
+instructions
+for submission:</span></b><br><comment title="[if !supportEmptyParas]" xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title="[endif]" xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><o:p></o:p></p>
+<ol><li>The
+assignment is a <span style="font-weight: bold;">two</span> person project, worth 10% of the overall module mark and <b>has</b> to be done in Java (it's up to you if you want to do it individually,&nbsp;but&nbsp;marking will be the same).&nbsp;</li><li>Please
+also write a short (4 page max) design documentation which may get you
+some
+partial credit if I cannot get your program to execute as it should.
+&nbsp;The report
+should (among other things) describe&nbsp;how you divided the work
+between you, how to compile and run the code, how your solution
+addresses issues
+like fairness, prevention of starvation etc.</li><li>You
+have to submit all your source files, documentation and also all the
+generated
+class files for the unix platform.</li><li>Please <a href="mailto:martin.crane@computing.dcu.ie?subject=CA4006%20Assignment1">Mail</a>
+the above to me with a completed <a href="http://www.computing.dcu.ie/%7Emcrane/Declaration%20on%20Plagiarism.pdf">plagiarism declaration form</a>&nbsp;which is signed by <span style="font-weight: bold;">both of you</span>.<span style="text-decoration: underline;"></span></li><li>Deadline
+for submission is the <span style="color: red; font-weight: bold;">Friday 22nd March at 5.00pm</span>.&nbsp; Penalties will apply for late submissions.</li><li>There
+will be a short intermediate presentation phase whereby you present
+your approach to the class. &nbsp;This will probably happen in week 6
+but more details will be given beforehand.</li></ol><p class="MsoNormal" style="text-align: justify; font-family: Verdana;"></p><p class="MsoNormal" style="text-align: justify; font-family: Verdana;"><span style="color: black;"><span style="font-style: italic;"><span style="font-weight: bold;">A&nbsp;Word on Resit Continuous Assessment: </span></span></span><br><span style="color: black;"><span style="font-style: italic;"><span style="font-weight: bold;">
+    </span></span></span></p><ol><li><span style="color: black;"><span style="font-style: italic;">A resit is available for all components of this module.</span></span></li><li><span style="color: black;"><span style="font-style: italic;">Students
+who fail the module on the first sitting must resit each component (CA
+or exam) that they failed. In particular, students who fail the CA must
+resit the CA.</span></span></li><li><span style="color: black;"><span style="font-style: italic;">A student may not resit a component that has been passed and their marks for the component are carried forward</span></span></li><li><span style="color: black;"><span style="font-style: italic;">Marks for failed components will be set to zero in ITS before the resit.</span></span><span style="color: black;"><span style="font-weight: bold; font-style: italic;"></span> </span></li></ol>
+<p class="MsoNormal" style="text-align: justify;"><comment title="[if !supportEmptyParas]" xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><comment title="[endif]" xmlns="http://disruptive-innovations.com/zoo/nvu"></comment><o:p></o:p></p><p class="MsoNormal" style="text-align: justify; font-family: Verdana;">Good luck!</p><br><a style="font-style: italic;" name="vanilla"></a><span style="font-style: italic;">i.e. one that is not exotic</span><br style="font-style: italic;"><p class="MsoNormal" style="text-align: justify; font-family: Verdana;"></p>
+</div>
+</body></html>

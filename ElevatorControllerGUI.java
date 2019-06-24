@@ -1,15 +1,15 @@
-
+// GUI 
 import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.*;
 import javax.swing.*;
-
-
+// Program
+import java.util.*; 
+import java.io.*; 
 import java.util.concurrent.*;
 import  java.util.concurrent.atomic.*; 
-import java.util.*; 
 
 
 public class ElevatorControllerGUI{
@@ -48,7 +48,7 @@ public class ElevatorControllerGUI{
 		// time will go up in every time the elevator goes up a floor 
 		this.currentTime = 0; 
 		this.currentWeight = 0 ;
-		this.maxWeight = 200; 
+		this.maxWeight = 500; 
 		// assign each elevator a number
 		this.elevatorNumber = elevatorNumberGenerator.getAndIncrement(); 
 		gui = new grid(); 
@@ -61,18 +61,7 @@ public class ElevatorControllerGUI{
 	}
 	
 	
-	public synchronized ConcurrentHashMap getRequestQueue(){
-		   return this.request; 
-	}
-	
-	
-		public synchronized ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> getWaitingQueue(){
-		   return this.request; 
-	}
-	
-		public synchronized ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> getInElevatorQueue(){
-		   return this.inElevator; 
-	}
+
 	// add a person into the in elevator, request or waiting queue 
 	public synchronized void addPerson(Person person, int floor, ConcurrentHashMap<Integer,ConcurrentLinkedQueue<Person>> hashmap){
 		ConcurrentLinkedQueue<Person> tmp = new ConcurrentLinkedQueue<Person>(); 
@@ -208,8 +197,13 @@ public class ElevatorControllerGUI{
 	  // if there are people waiting or in the elevator 
       if(!(waiting.isEmpty()) || !(inElevator.isEmpty()) ){
 		  
+		 String elevatorFloorString =  String.format("Elevator %d is on floor %s\n",this.elevatorNumber,this.currentFloor);
+		 
+		 // write to output.dat 
+		 writeOutput(elevatorFloorString); 
+		 
 		 // print what floor the elevator is on 
-	    System.out.printf("Elevator %d is on floor %d\n",this.elevatorNumber,this.currentFloor); 	 
+	    System.out.printf(elevatorFloorString); 	 
 	    
 	    // check if the next floor is max or min then decide direction   
 		if (goingUp == true){
@@ -244,7 +238,9 @@ public class ElevatorControllerGUI{
 		 }
 		 
 		 	   if (waiting.isEmpty() && inElevator.isEmpty()){
-				System.out.printf("The elevator is sleeping on floor %d\n",currentFloor); 			
+				String sleepingOutput = String.format("Elevator %d is sleeping on floor %d\n",this.elevatorNumber, this.currentFloor);
+		        writeOutput(sleepingOutput); 
+				System.out.printf(sleepingOutput); 	 			
 			}
 		  
 		  
@@ -278,8 +274,9 @@ public class ElevatorControllerGUI{
 		        
 				// print heading 
 		   	    if (!(headingPrinted)){
-					System.out.printf("Stopping on floor %d for people\n**************************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
-					System.out.printf("****************\nAllowing people in on floor %s...\n",currentFloor);
+					String enteringElevator = String.format("Stopping on floor %d for people\n**************************\nAllowing people in on floor %s...\n",this.currentFloor, this.currentFloor);
+					writeOutput(enteringElevator);
+					System.out.print(enteringElevator); 
 					headingPrinted = true; 
 				}
 				
@@ -290,7 +287,9 @@ public class ElevatorControllerGUI{
 					// if the elevator is over weight 
 					// the last person in exits the elevator and is put back at the front of the queue on that floor 
 					addPersonFirst(personEntering, currentFloor, waiting); 
-					System.out.printf("**********************************************************\nElevator %d too heavy with combined weight %d and max weight limit %d\nPerson %s is leaving the elevator\n**********************************************************\n", this.elevatorNumber, combinedWeight, maxWeight, personEntering); 
+					String weightWarning = String.format("**********************************************************\nElevator %d too heavy with combined weight %d and max weight limit %d\nPerson %s is leaving the elevator\n**********************************************************\n", this.elevatorNumber, combinedWeight, maxWeight, personEntering); 
+					writeOutput(weightWarning);
+					System.out.print(weightWarning); 
 					break; 
 				}
 				
@@ -300,7 +299,8 @@ public class ElevatorControllerGUI{
 				addPerson(personEntering, personEntering.getDestinationFloor(),inElevator);
 				// remove from the waiting in GUI
 				gui.removePerson(personEntering); 
-				// print persons details
+				// print/output persons details
+				writeOutput(personEntering.toString()); 
 				System.out.println(personEntering); 
 				// remove another waiting person on the current floor 
 		        personEntering = removeAPerson(currentFloor, waiting); 
@@ -322,17 +322,18 @@ public class ElevatorControllerGUI{
 		 gui.emptyElevator(personLeaving); 
 		 // print heading to show people are leaving 
 		 if(!(headingPrinted)){
-			System.out.printf("****************\nLetting people out on floor %s...\n",currentFloor); 
+			String exitingElevator = String.format("*******************************\nLetting people out on floor %s...\n",currentFloor); 
+			writeOutput(exitingElevator); 
+			System.out.print(exitingElevator); 			
 			headingPrinted = true; 
 	     }
 	     
-	    // print out who's leaving 
+	    // print/output who's leaving elevator
+	    writeOutput(personLeaving.toString()); 
         System.out.println(personLeaving); 
         // adjust weight according to the people who are leaving
         this.currentWeight-= personLeaving.getTotalWeight() ;
         // remove person from the elevator GUI
-        //gui.removePersonFromElevator(personLeaving);
-        // remove another person from this floor 
 	    personLeaving = removeAPerson(currentFloor,inElevator); 
 	  
      	}
@@ -346,6 +347,14 @@ public class ElevatorControllerGUI{
     
    
    public synchronized void transferPeople(ElevatorController faulty, ElevatorController backUp){
+	   // outptut a fault has occured 
+	   // print out that another elevator is being dispatched 
+	   String faultWarning = "**********FAULT PEOPLE BEING TRANSFERRED TO ANOTHER ELEVATOR***********\n**********Starting backup elevator from floor 1************************\n"; 
+	   System.out.println(faultWarning);
+	   writeOutput(faultWarning);   
+	   
+	   
+	   
 	   
 	   // update values
 	   
@@ -365,7 +374,27 @@ public class ElevatorControllerGUI{
    }
 	 
 
- 
+ 	
+	public synchronized void writeOutput(String outputString) {
+		try{
+			  
+			 // write to output.dat
+			 File file =new File("output.dat");
+    	     if(!file.exists()){
+    	 	     file.createNewFile();
+    	    }
+			  FileWriter fileWritter = new FileWriter(file.getName(),true);
+			  BufferedWriter bw = new BufferedWriter(fileWritter);
+              bw.write(outputString);
+              bw.close();
+    	  
+    	  }
+    	 catch(IOException e){
+    	   System.out.println("Exception occurred:");
+    	   e.printStackTrace();
+      }
+		
+	}
 
 	public synchronized int getTime(){
 		return this.currentTime;
@@ -713,8 +742,7 @@ class grid {
 					  else{
 						tmpLabels.add(over); 
 						filledElevatorSpots.put(id, tmpLabels); 
-			
-		}
+						}
 			
 		
 				 }
