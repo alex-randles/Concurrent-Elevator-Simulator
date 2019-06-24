@@ -6,7 +6,7 @@ Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/Assign
 
 ## Documenation ## 
 Stored in the ElevatorDocumentation.docx within this directory
-Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/ElevatorDocumenation.pdf
+Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/Elevator%20Documentation.pdf
 
 ## Compiling ##
 **************************
