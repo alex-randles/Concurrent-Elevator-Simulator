@@ -2,8 +2,11 @@
 
 ## Assignment Specification ## 
 Stored in the AssignmentSpecification.pdf within this directory
-Link: https://github.com/randlea2/-CA4006-Concurrent-Distributed-Programming-/blob/master/AssignmentSpecification.pdf
+Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/AssignmentSpecification.pdf
 
+## Documenation ## 
+Stored in the ElevatorDocumentation.docx within this directory
+Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/ElevatorDocumenation.pdf
 
 ## Compiling ##
 **************************
