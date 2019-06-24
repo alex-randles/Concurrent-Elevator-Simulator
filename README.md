@@ -1,4 +1,4 @@
-## Written by Alex Randles (https://github.com/randlea2) & Kealan Thompson (https://github.com/kealant) ##
+### Written by Alex Randles (https://github.com/randlea2) & Kealan Thompson (https://github.com/kealant) ##
 
 ## Assignment Specification ## 
 * Stored in the AssignmentSpecification.pdf within this directory
