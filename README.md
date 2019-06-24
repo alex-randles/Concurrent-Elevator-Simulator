@@ -1,12 +1,12 @@
 ## Written by Alex Randles (https://github.com/randlea2) & Kealan Thompson (https://github.com/kealant) ##
 
 ## Assignment Specification ## 
-Stored in the AssignmentSpecification.pdf within this directory
-Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/AssignmentSpecification.pdf
+* Stored in the AssignmentSpecification.pdf within this directory
+* Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/AssignmentSpecification.pdf
 
 ## Documenation ## 
-Stored in the ElevatorDocumentation.docx within this directory
-Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/Elevator%20Documentation.pdf
+* Stored in the ElevatorDocumentation.docx within this directory
+* Link: https://github.com/randlea2/ConcurrentElevatorSimulator/blob/master/Elevator%20Documentation.pdf
 
 ## Compiling ##
 **************************
